@@ -1,0 +1,12 @@
+// **************************************************************************
+// GateInjectGenerator
+// **************************************************************************
+
+part of 'coffee_page.dart';
+
+extension CoffeePageInjection on CoffeePage {
+  S1 get s1 => AppProvider.instance.getS1Build();
+
+  CoffeeService get coffeeService =>
+      AppProvider.instance.getCoffeeServiceSimple();
+}

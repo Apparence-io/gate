@@ -1,0 +1,18 @@
+# Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
+builders:
+  gate_generator:
+    target: ":gate_generator"
+    import: "package:gate_generator/gate_builder.dart"
+    builder_factories: ["gateBuilder"]
+    build_extensions: {".dart": [".gate.dart"]}
+    auto_apply: root_package
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
+  inject_generator:
+    target: ":inject_generator"
+    import: "package:gate_generator/gate_builder.dart"
+    builder_factories: ["gateInjectBuilder"]
+    build_extensions: {".dart": ["gate_inject.g.part"]}
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
