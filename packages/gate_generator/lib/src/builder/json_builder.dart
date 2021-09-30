@@ -26,9 +26,11 @@ class JsonBuilder implements Builder {
     final generatedOutputs = await _generate(lib, [generator], buildStep).toList();
     final contentBuffer = StringBuffer();
     for (var item in generatedOutputs) {
-      contentBuffer.writeln(item);
+      contentBuffer.write(item);
     }
-    buildStep.writeAsString(outputId, contentBuffer.toString());
+    if (contentBuffer.isNotEmpty) {
+      buildStep.writeAsString(outputId, contentBuffer.toString());
+    }
   }
 
   Stream<String> _generate(

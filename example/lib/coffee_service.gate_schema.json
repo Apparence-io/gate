@@ -3,12 +3,14 @@
     "path": "/gate_example/lib/coffee_service.dart",
     "className": "CoffeeService",
     "constructor": "simple",
-    "injectionType": "InjectionType.SINGLETON"
+    "injectionType": "InjectionType.SINGLETON",
+    "dependencies": []
   },
   {
     "path": "/gate_example/lib/coffee_service.dart",
     "className": "S1",
     "constructor": "build",
-    "injectionType": "InjectionType.DYNAMIC"
+    "injectionType": "InjectionType.DYNAMIC",
+    "dependencies": []
   }
 ]

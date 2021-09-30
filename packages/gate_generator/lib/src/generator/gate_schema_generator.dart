@@ -12,9 +12,11 @@ class GateSchemaGenerator extends GeneratorForAnnotation<Injectable> {
 
   @override
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) async {
+    classList.clear();
     for (var annotatedElement in library.annotatedWith(typeChecker)) {
       generateForAnnotatedElement(annotatedElement.element, annotatedElement.annotation, buildStep);
     }
+    if (classList.isEmpty) return '';
     JsonEncoder encoder = JsonEncoder.withIndent('  ');
     return encoder.convert(classList);
   }
