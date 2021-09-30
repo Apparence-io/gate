@@ -10,6 +10,8 @@ enum InjectionType {
   DYNAMIC,
 }
 
+InjectionType injectTypefromJson(String value) => InjectionType.values.firstWhere((element) => element.toString() == value);
+
 class ClassSchema {
   String path;
   String className;
@@ -56,7 +58,7 @@ class ClassSchema {
         path: json["path"],
         className: json["className"],
         constructor: json["constructor"],
-        injectionType: json["injectionType"],
+        injectionType: injectTypefromJson(json["injectionType"]),
         dependencies: List<Dependency>.from(json["dependencies"].map((x) => x)),
       );
 

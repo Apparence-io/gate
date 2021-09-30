@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:gate_generator/src/generator/gate_provider_generator.dart';
+import 'package:gate_generator/src/generator/json_generator.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:path/path.dart' as p;
 import 'package:glob/glob.dart';
@@ -9,7 +10,7 @@ import 'dart:async';
 class AggregatingBuilder implements Builder {
   static final inputFiles = Glob('lib/**');
   final bool allowSyntaxErrors = true;
-  final GateCodeGenerator generator;
+  final Generator generator;
 
   AggregatingBuilder(this.generator);
 
@@ -30,13 +31,12 @@ class AggregatingBuilder implements Builder {
   @override
   Future<void> build(BuildStep buildStep) async {
     final output = _allFileOutput(buildStep);
-
+    var res = StringBuffer();
     await for (final input in buildStep.findAssets(inputFiles)) {
-      generator.assetId = input;
       final lib = await buildStep.resolver.libraryFor(input, allowSyntaxErrors: allowSyntaxErrors);
-      await _generate(lib, [generator], buildStep);
+      res.writeln(await _generate(lib, [generator], buildStep));
     }
-    return buildStep.writeAsString(output, generator.gateProviderGraph.toString());
+    return buildStep.writeAsString(output, res.toString());
   }
 
   Future _generate(

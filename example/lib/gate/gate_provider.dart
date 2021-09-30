@@ -1,10 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 // CoffeeService;
-import '../coffee_service.dart';
+import 'package:gate_example/coffee_service.dart';
 // S1;
-import '../coffee_service.dart';
+import 'package:gate_example/coffee_service.dart';
 // TodoService;
-import '../todo.dart';
+import 'package:gate_example/todo.dart';
 
 class AppProvider {
   

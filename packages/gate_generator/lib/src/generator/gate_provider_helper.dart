@@ -1,16 +1,12 @@
 import 'package:gate_generator/src/models/class_model.dart';
 
 class GateProviderGraph {
-  List<ClassSchema> injectables;
+  final List<ClassSchema> injectables;
 
-  GateProviderGraph() : injectables = [];
-
-  add(ClassSchema injectable) {
-    injectables.add(injectable);
-  }
+  GateProviderGraph(this.injectables);
 
   /// throws if dependency is not injected
-  checkDepency(Dependency dependency) {
+  checkDependency(Dependency dependency) {
     if (!injectables.any((e) => e.className == dependency.type)) {
       throw "Dependency cannot be created. All your injection's dependencies must be injected.";
     }
@@ -22,7 +18,7 @@ class GateProviderGraph {
     res.writeln("// ignore_for_file: non_constant_identifier_names");
     for (var el in injectables) {
       res.writeln("// ${el.className};");
-      res.writeln("import '../${el.path}';");
+      res.writeln("import 'package:${el.path}';");
     }
     res.writeln("");
     res.writeln("class AppProvider {");
