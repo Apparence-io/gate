@@ -3,6 +3,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:gate_generator/src/factories/abstract_provider_factory.dart';
 import 'package:gate_generator/src/factories/class_provider_factory.dart';
+import 'dart:convert';
 
 enum InjectionType {
   SINGLETON,
@@ -51,6 +52,16 @@ class ClassSchema {
         injectionType: InjectionType.DYNAMIC,
       );
 
+  factory ClassSchema.fromJson(Map<String, dynamic> json) => ClassSchema(
+        path: json["path"],
+        className: json["className"],
+        constructor: json["constructor"],
+        injectionType: json["injectionType"],
+        dependencies: List<Dependency>.from(json["dependencies"].map((x) => x)),
+      );
+
+  factory ClassSchema.fromRawJson(String str) => ClassSchema.fromJson(json.decode(str));
+
   ProviderFactory get providerFactory {
     switch (injectionType) {
       case InjectionType.SINGLETON:
@@ -59,6 +70,37 @@ class ClassSchema {
         return DynamicProviderFactory(this);
     }
   }
+
+  String toRawJson() => json.encode(toJson());
+
+  Map<String, dynamic> toJson() => {
+        "path": path,
+        "className": className,
+        "constructor": constructor,
+        "injectionType": injectionType.toString(),
+        "dependencies": dependencies,
+      };
+
+  ClassSchema copyWith({
+    required String path,
+    required String className,
+    required String constructor,
+    required InjectionType injectionType,
+    required List<Dependency> dependencies,
+  }) =>
+      ClassSchema(
+        path: path,
+        className: className,
+        constructor: constructor,
+        injectionType: injectionType,
+        dependencies: dependencies,
+      );
+
+  @override
+  bool operator ==(dynamic other) => other is ClassSchema && other.constructor == constructor && other.className == className && other.path == path;
+
+  @override
+  int get hashCode => constructor.hashCode ^ className.hashCode ^ path.hashCode;
 }
 
 class Dependency {
@@ -72,4 +114,14 @@ class Dependency {
       Dependency(
         type: typeElement.toString().split(" ")[0],
       );
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Dependency.fromJson(Map<String, dynamic> json) => Dependency(
+        type: json["type"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "type": type,
+      };
 }

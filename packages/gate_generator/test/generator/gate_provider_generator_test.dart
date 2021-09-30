@@ -1,6 +1,6 @@
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
-import 'package:gate_generator/gate_builder.dart';
+import 'package:gate_generator/src/builder/aggregating_builder.dart';
 import 'package:gate_generator/src/generator/gate_provider_generator.dart';
 import 'package:gate_generator/src/generator/gate_provider_helper.dart';
 import 'package:test/test.dart';
