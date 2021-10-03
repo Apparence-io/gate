@@ -1,7 +1,7 @@
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
 import 'package:gate_generator/src/builder/json_builder.dart';
-import 'package:gate_generator/src/generator/gate_provider_helper.dart';
+import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:gate_generator/src/generator/gate_schema_generator.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:test/test.dart';
@@ -36,14 +36,13 @@ void main() {
       ''';
       final expectedJson = '''[
   {
-    "path": "/a/lib/a.dart",
+    "path": "a/a.dart",
     "className": "TodoService",
     "constructor": "bean",
     "injectionType": "InjectionType.DYNAMIC",
     "dependencies": []
   }
-]
-''';
+]''';
       await testBuilder(
         JsonBuilder(GateSchemaGenerator()),
         {'a|lib/a.dart': classFile},

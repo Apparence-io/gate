@@ -1,9 +1,9 @@
-// ignore_for_file: non_constant_identifier_names
-// CoffeeService;
+// ********************************
+// Gate AppProvider generated file 
+// Do not modify by hand           
+// ********************************
 import 'package:gate_example/coffee_service.dart';
-// S1;
 import 'package:gate_example/coffee_service.dart';
-// TodoService;
 import 'package:gate_example/todo.dart';
 
 class AppProvider {

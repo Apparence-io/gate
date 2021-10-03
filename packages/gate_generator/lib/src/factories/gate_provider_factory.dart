@@ -1,23 +1,19 @@
 import 'package:gate_generator/src/models/class_model.dart';
+import 'package:gate_generator/src/models/gate_provider_graph.dart';
 
-class GateProviderGraph {
-  final List<ClassSchema> injectables;
+class GateProviderFactory {
+  final GateProviderGraph graph;
 
-  GateProviderGraph(this.injectables);
-
-  /// throws if dependency is not injected
-  checkDependency(Dependency dependency) {
-    if (!injectables.any((e) => e.className == dependency.type)) {
-      throw "Dependency cannot be created. All your injection's dependencies must be injected.";
-    }
-  }
+  GateProviderFactory(this.graph);
 
   @override
   String toString() {
     var res = StringBuffer();
-    res.writeln("// ignore_for_file: non_constant_identifier_names");
-    for (var el in injectables) {
-      res.writeln("// ${el.className};");
+    res.writeln("// ********************************");
+    res.writeln("// Gate AppProvider generated file ");
+    res.writeln("// Do not modify by hand           ");
+    res.writeln("// ********************************");
+    for (var el in graph.injectables) {
       res.writeln("import 'package:${el.path}';");
     }
     res.writeln("");
@@ -27,7 +23,7 @@ class GateProviderGraph {
     res.writeln("  ");
     res.writeln('''  AppProvider._();''');
     res.writeln("  ");
-    for (var el in injectables) {
+    for (var el in graph.injectables) {
       res.writeln("  // ${el.className};");
       res.writeln(el.providerFactory.build());
     }

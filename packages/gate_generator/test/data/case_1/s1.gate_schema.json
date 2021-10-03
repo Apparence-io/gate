@@ -1,0 +1,13 @@
+[
+  {
+    "path": "gate_generator/test/data/case_1/s1.dart",
+    "className": "S1",
+    "constructor": "build",
+    "injectionType": "InjectionType.DYNAMIC",
+    "dependencies": [
+      {
+        "type": "S2"
+      }
+    ]
+  }
+]

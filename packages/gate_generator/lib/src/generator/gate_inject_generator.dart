@@ -1,9 +1,27 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:build/build.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:gate/gate.dart';
+import 'package:gate_generator/src/generator/graph_reader.dart';
+import 'package:gate_generator/src/models/class_model.dart';
+import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:source_gen/source_gen.dart';
 
+import 'json_generator.dart';
+
 class GateInjectGenerator extends GeneratorForAnnotation<Inject> {
+  @override
+  FutureOr<String> generate(LibraryReader library, BuildStep buildStep) async {
+    var gateReader = GateGraphReader.instance;
+    if (gateReader.graph == null) {
+      await GateGraphReader.instance.build(buildStep);
+    }
+    return super.generate(library, buildStep);
+  }
+
   @override
   generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
     var res = StringBuffer();

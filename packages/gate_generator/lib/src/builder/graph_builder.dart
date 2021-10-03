@@ -4,34 +4,44 @@ import 'package:path/path.dart' as p;
 import 'package:glob/glob.dart';
 import 'dart:async';
 
+enum OutputMode {
+  single,
+  multi,
+}
+
 class GateGraphBuilder implements Builder {
-  static final inputFiles = Glob('lib/**.json');
   final bool allowSyntaxErrors = true;
   final GeneratorForJson generator;
+  final OutputMode outputMode;
+  final String buildExtension;
 
-  GateGraphBuilder(this.generator);
+  GateGraphBuilder(this.generator, {required this.outputMode, required this.buildExtension});
 
-  @override
-  Map<String, List<String>> get buildExtensions {
-    return {
-      r'$lib$': const ['gate/gate_provider.dart']
-    };
-  }
-
-  static AssetId _allFileOutput(BuildStep buildStep) {
-    return AssetId(
-      buildStep.inputId.package,
-      p.join('lib', 'gate/gate_provider.dart'),
-    );
+  AssetId _fileOutput(BuildStep buildStep) {
+    if (outputMode == OutputMode.single) {
+      return AssetId(
+        buildStep.inputId.package,
+        p.join('lib', buildExtension),
+      );
+    }
+    return buildStep.inputId.changeExtension(buildExtension);
   }
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    final output = _allFileOutput(buildStep);
-    await for (final input in buildStep.findAssets(inputFiles)) {
-      log.info("### GateGraphBuilder Processing:  ${input.path}");
-      generator.parse(await buildStep.readAsString(input));
+    final AssetId output = _fileOutput(buildStep);
+    return buildStep.writeAsString(output, generator.generate(buildStep));
+  }
+
+  @override
+  Map<String, List<String>> get buildExtensions {
+    if (outputMode == OutputMode.single) {
+      return {
+        r'$lib$': [buildExtension]
+      };
     }
-    return buildStep.writeAsString(output, generator.generate());
+    return {
+      '.dart': [buildExtension]
+    };
   }
 }

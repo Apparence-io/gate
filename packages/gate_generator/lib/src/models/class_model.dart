@@ -59,7 +59,8 @@ class ClassSchema {
         className: json["className"],
         constructor: json["constructor"],
         injectionType: injectTypefromJson(json["injectionType"]),
-        dependencies: List<Dependency>.from(json["dependencies"].map((x) => x)),
+        dependencies: List.from(json["dependencies"]).map((x) => Dependency.fromJson(x)).toList(),
+        // dependencies: List<Dependency>.from(json["dependencies"].map((x) => x)),
       );
 
   factory ClassSchema.fromRawJson(String str) => ClassSchema.fromJson(json.decode(str));

@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:build/build.dart';
+
 abstract class GeneratorForJson<T> {
   GeneratorForJson();
 
-  Future<String> generate();
-
-  void parse(String json);
+  Future<String> generate(BuildStep buildStep);
 }

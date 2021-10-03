@@ -1,29 +1,28 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:build/build.dart';
+import 'package:gate_generator/src/generator/graph_reader.dart';
 import 'package:gate_generator/src/models/class_model.dart';
 
-import 'gate_provider_helper.dart';
+import '../models/gate_provider_graph.dart';
 import 'json_generator.dart';
 
 class GateCodeGenerator extends GeneratorForJson<ClassSchema> {
+  GateGraphReader gateReader;
   AssetId? assetId;
-  List<ClassSchema> clazz = [];
 
-  GateCodeGenerator() : super();
+  GateCodeGenerator(this.gateReader) : super();
 
   @override
-  Future<String> generate() async {
-    final providerGraph = GateProviderGraph(clazz);
-    for (var element in clazz) {
-      log.info("ClassSchema generateForJson ${element.className}");
+  Future<String> generate(BuildStep buildStep) async {
+    if (gateReader.graph == null) {
+      await gateReader.build(buildStep);
     }
-    return providerGraph.toString();
-  }
-
-  @override
-  void parse(String json) {
-    List<dynamic> _clazzList = jsonDecode(json);
-    clazz.addAll(_clazzList.map((e) => ClassSchema.fromJson(e)).toList());
+    for (var injectable in gateReader.graph!.injectables) {
+      for (var dependency in injectable.dependencies) {
+        gateReader.graph!.checkDependency(dependency);
+      }
+    }
+    return gateReader.graph!.appProviderFactory.toString();
   }
 }

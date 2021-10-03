@@ -1,0 +1,9 @@
+[
+  {
+    "path": "gate_generator/test/data/case_0/s3.dart",
+    "className": "S3",
+    "constructor": "build",
+    "injectionType": "InjectionType.DYNAMIC",
+    "dependencies": []
+  }
+]
