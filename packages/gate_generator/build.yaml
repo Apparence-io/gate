@@ -1,4 +1,18 @@
 # Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
+targets:
+  $default:
+    builders:
+      gate_schema:
+        generate_for:
+        - test/*
+      gate_generator:
+        generate_for:
+        - example/*
+      inject_generator:
+        generate_for:
+        - test/*
+
+
 builders:
   gate_schema:
     target: ":gate_schema"
