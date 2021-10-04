@@ -20,9 +20,6 @@ class GateGraphReader {
     log.info("-- GateGraphReader build ");
     List<ClassSchema> classList = [];
     await for (final input in buildStep.findAssets(inputFiles)) {
-      var s = await buildStep.readAsString(input);
-      print("-- GateGraphReader ");
-      print("$s ");
       classList.addAll(_parse(await buildStep.readAsString(input)));
     }
     graph = GateProviderGraph(classList);

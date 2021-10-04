@@ -1,0 +1,9 @@
+[
+  {
+    "path": "gate_generator/test/data/case_2/s2.dart",
+    "className": "S2",
+    "constructor": "build",
+    "injectionType": "InjectionType.SINGLETON",
+    "dependencies": []
+  }
+]

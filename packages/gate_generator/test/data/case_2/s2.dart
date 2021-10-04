@@ -1,12 +1,10 @@
-// ***********************************
-// Try to inject S2 into S1 without S2 as Injectable
-// this fails
-// ***********************************
 import 'package:gate/gate.dart';
 
+@Injectable()
 class S2 {
   S2._();
 
+  @Singleton()
   factory S2.build() => S2._();
 
   void test() {

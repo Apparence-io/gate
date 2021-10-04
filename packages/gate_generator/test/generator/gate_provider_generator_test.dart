@@ -54,7 +54,7 @@ void main() {
         buildExtension: 'gate/gate_provider.dart',
       ),
       {'a|lib/a.txt': 'a'},
-      outputs: {'a|lib/gate/gate_provider.dart': graph.toString()},
+      outputs: {'a|lib/gate/gate_provider.dart': graph.appProviderFactory.toString()},
       reader: reader,
       rootPackage: 'a',
     );
@@ -89,6 +89,53 @@ void main() {
   S1 requires S2 as parameter
   => Creates an AppProvider class with get methods for S1,S2,S3
   ''', () async {
-    // final gateCodeGenerator = GateCodeGenerator();
+    final graphReader = GateGraphReader(folder: 'data/case1');
+    final gateCodeGenerator = GateCodeGenerator(graphReader);
+    List<AssetId> assets = [
+      AssetId('gate_generator', 'test/data/case_1/s1.gate_schema.json'),
+      AssetId('gate_generator', 'test/data/case_1/s2.gate_schema.json'),
+      AssetId('gate_generator', 'test/data/case_1/s3.gate_schema.json'),
+    ];
+    when(() => buildStepMock.findAssets(any())).thenAnswer((_) => Stream.fromIterable(assets));
+    for (var asset in assets) {
+      when(() => buildStepMock.readAsString(asset)).thenAnswer((_) => File(asset.path).readAsString());
+    }
+    var generatedString = await gateCodeGenerator.generate(buildStepMock);
+    var analyzedClass = StringClassTestUtils.parse(generatedString);
+
+    expect(analyzedClass.getters.length, 3);
+    expect(analyzedClass.getters[0].name, "getS1Build");
+    expect(analyzedClass.getters[1].name, "getS2Build");
+    expect(analyzedClass.getters[2].name, "getS3Build");
+  });
+
+  test(''' 
+  classes S1, S2, S3 are singleton Injectables,
+  S1 requires S2 as parameter
+  => Creates an AppProvider class with get methods for S1,S2,S3, 1 attribute exists for each one
+  ''', () async {
+    final graphReader = GateGraphReader(folder: 'data/case1');
+    final gateCodeGenerator = GateCodeGenerator(graphReader);
+    List<AssetId> assets = [
+      AssetId('gate_generator', 'test/data/case_2/s1.gate_schema.json'),
+      AssetId('gate_generator', 'test/data/case_2/s2.gate_schema.json'),
+      AssetId('gate_generator', 'test/data/case_2/s3.gate_schema.json'),
+    ];
+    when(() => buildStepMock.findAssets(any())).thenAnswer((_) => Stream.fromIterable(assets));
+    for (var asset in assets) {
+      when(() => buildStepMock.readAsString(asset)).thenAnswer((_) => File(asset.path).readAsString());
+    }
+    var generatedString = await gateCodeGenerator.generate(buildStepMock);
+    var analyzedClass = StringClassTestUtils.parse(generatedString);
+
+    expect(analyzedClass.getters.length, 3);
+    // 4 attrs because we got AppProvider instance attr first
+    expect(analyzedClass.attrs.length, 4);
+    expect(analyzedClass.attrs[1].name, '_s1');
+    expect(analyzedClass.attrs[2].name, '_s2');
+    expect(analyzedClass.attrs[3].name, '_s3');
+    expect(analyzedClass.getters[0].name, "getS1Build");
+    expect(analyzedClass.getters[1].name, "getS2Build");
+    expect(analyzedClass.getters[2].name, "getS3Build");
   });
 }

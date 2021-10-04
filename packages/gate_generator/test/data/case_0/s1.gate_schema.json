@@ -4,7 +4,6 @@
     "className": "S1",
     "constructor": "build",
     "injectionType": "InjectionType.DYNAMIC",
-    "dependencies": [
-    ]
+    "dependencies": []
   }
 ]

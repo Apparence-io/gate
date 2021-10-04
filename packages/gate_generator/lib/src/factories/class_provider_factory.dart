@@ -37,7 +37,7 @@ class SingletonProviderFactory extends BaseProviderFactory {
   @override
   String build() {
     var res = StringBuffer();
-    res.writeln("  final _$name = $constructor;");
+    res.writeln("  final ${schema.className} _$name = $constructor;");
     res.writeln("  ");
     res.writeln("  ${schema.className} $method() => _$name;");
     res.writeln("  ");
