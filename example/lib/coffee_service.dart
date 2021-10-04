@@ -2,12 +2,12 @@ import 'package:gate/gate.dart';
 
 @Injectable()
 class CoffeeService {
-  // final S1 s1;
+  final S1 s1;
 
-  CoffeeService._();
+  CoffeeService._(this.s1);
 
   @Singleton()
-  factory CoffeeService.simple() => CoffeeService._();
+  factory CoffeeService.simple(S1 s1) => CoffeeService._(s1);
 
   void pump() {
     print("CoffeeService it's working");

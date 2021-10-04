@@ -18,7 +18,3 @@ class CoffeePage extends StatelessWidget {
     return Container();
   }
 }
-
-// extension CoffeeInjection on CoffeePage {
-//   CoffeeService get coffeeService => AppProvider.instance.getCoffeeServiceSimple();
-// }

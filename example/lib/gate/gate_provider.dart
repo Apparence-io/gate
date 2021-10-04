@@ -13,7 +13,7 @@ class AppProvider {
   AppProvider._();
   
   // CoffeeService;
-  final _coffeeService = CoffeeService.simple();
+  final CoffeeService _coffeeService = CoffeeService.simple(getS1());
   
   CoffeeService getCoffeeServiceSimple() => _coffeeService;
   

@@ -4,7 +4,11 @@
     "className": "CoffeeService",
     "constructor": "simple",
     "injectionType": "InjectionType.SINGLETON",
-    "dependencies": []
+    "dependencies": [
+      {
+        "type": "S1"
+      }
+    ]
   },
   {
     "path": "gate_example/coffee_service.dart",
