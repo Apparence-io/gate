@@ -1,6 +1,7 @@
 import 'package:gate_generator/src/models/class_model.dart';
 import 'package:gate_generator/src/models/gate_provider_graph.dart';
 
+// TODO use code_builder to generate code
 class GateProviderFactory {
   final GateProviderGraph graph;
 
