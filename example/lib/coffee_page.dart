@@ -7,6 +7,7 @@ part 'coffee_page.gate_inject.g.part';
 
 @Inject(children: [
   InjectedChild("S1", factoryName: "build"),
+  InjectedChild("S2B", factoryName: "build"),
   InjectedChild("CoffeeService", factoryName: "simple", attrName: "coffeeService"),
 ])
 class CoffeePage extends StatelessWidget {
@@ -14,6 +15,7 @@ class CoffeePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    s2B.test();
     coffeeService.pump();
     return Container();
   }

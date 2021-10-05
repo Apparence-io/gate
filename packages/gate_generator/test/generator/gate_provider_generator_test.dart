@@ -6,6 +6,7 @@ import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
 import 'package:gate_generator/src/builder/aggregating_builder.dart';
 import 'package:gate_generator/src/builder/graph_builder.dart';
+import 'package:gate_generator/src/generator/exceptions/gate_provider_exceptions.dart';
 import 'package:gate_generator/src/generator/gate_provider_generator.dart';
 import 'package:gate_generator/src/generator/graph_reader.dart';
 import 'package:gate_generator/src/models/class_model.dart';
@@ -137,5 +138,27 @@ void main() {
     expect(analyzedClass.getters[0].name, "getS1Build");
     expect(analyzedClass.getters[1].name, "getS2Build");
     expect(analyzedClass.getters[2].name, "getS3Build");
+  });
+
+  test(''' 
+  classes S1, S2, S3 are dynamic Injectables,
+  S1 requires S2 as parameter
+  S2 requires S3 as parameter
+  S3 requires S1 as parameter
+  => throws a cyclic dependency as they both requires each other to build
+  ''', () async {
+    final graphReader = GateGraphReader(folder: 'data/case1');
+    final gateCodeGenerator = GateCodeGenerator(graphReader);
+    List<AssetId> assets = [
+      AssetId('gate_generator', 'test/data/case_3/s1.gate_schema.json'),
+      AssetId('gate_generator', 'test/data/case_3/s2.gate_schema.json'),
+      AssetId('gate_generator', 'test/data/case_3/s3.gate_schema.json'),
+    ];
+    when(() => buildStepMock.findAssets(any())).thenAnswer((_) => Stream.fromIterable(assets));
+    for (var asset in assets) {
+      when(() => buildStepMock.readAsString(asset)).thenAnswer((_) => File(asset.path).readAsString());
+    }
+    // await gateCodeGenerator.generate(buildStepMock);
+    expect(() async => await gateCodeGenerator.generate(buildStepMock), throwsA(TypeMatcher<CyclicDepencyException>()));
   });
 }

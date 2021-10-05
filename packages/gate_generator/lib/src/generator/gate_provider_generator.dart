@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:build/build.dart';
 import 'package:gate_generator/src/generator/graph_reader.dart';
 import 'package:gate_generator/src/models/class_model.dart';
 
-import '../models/gate_provider_graph.dart';
 import 'json_generator.dart';
 
 class GateCodeGenerator extends GeneratorForJson<ClassSchema> {
@@ -23,6 +21,9 @@ class GateCodeGenerator extends GeneratorForJson<ClassSchema> {
         gateReader.graph!.checkDependency(dependency);
       }
     }
+    gateReader.graph!.injectDependencies();
+    gateReader.graph!.checkCyclicDependency();
+
     return gateReader.graph!.appProviderFactory.toString();
   }
 }

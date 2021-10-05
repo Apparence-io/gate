@@ -16,5 +16,16 @@
     "constructor": "build",
     "injectionType": "InjectionType.DYNAMIC",
     "dependencies": []
+  },
+  {
+    "path": "gate_example/coffee_service.dart",
+    "className": "S2B",
+    "constructor": "build",
+    "injectionType": "InjectionType.SINGLETON",
+    "dependencies": [
+      {
+        "type": "CoffeeService"
+      }
+    ]
   }
 ]

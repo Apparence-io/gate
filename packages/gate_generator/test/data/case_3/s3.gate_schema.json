@@ -1,0 +1,13 @@
+[
+  {
+    "path": "gate_generator/test/data/case_3/s3.dart",
+    "className": "S3",
+    "constructor": "build",
+    "injectionType": "InjectionType.SINGLETON",
+    "dependencies": [
+      {
+        "type": "S1"
+      }
+    ]
+  }
+]

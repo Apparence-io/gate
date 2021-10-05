@@ -23,9 +23,17 @@ abstract class BaseProviderFactory implements ProviderFactory {
 
   @override
   String get parameters {
+    // var res = StringBuffer();
+    // for (var element in schema.dependencies) {
+    //   res.write("get${element.type}()");
+    // }
+    // return res.toString();
     var res = StringBuffer();
     for (var element in schema.dependencies) {
-      res.write("get${element.type}()");
+      if (element.classSchema == null) {
+        throw "element cannot be created. ${element.type} must be Injectable.";
+      }
+      res.write("${element.classSchema!.providerFactory.method}(),");
     }
     return res.toString();
   }
@@ -37,7 +45,7 @@ class SingletonProviderFactory extends BaseProviderFactory {
   @override
   String build() {
     var res = StringBuffer();
-    res.writeln("  final ${schema.className} _$name = $constructor;");
+    res.writeln("  late final ${schema.className} _$name = $constructor;");
     res.writeln("  ");
     res.writeln("  ${schema.className} $method() => _$name;");
     res.writeln("  ");

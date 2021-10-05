@@ -13,8 +13,13 @@ class GateProviderFactory {
     res.writeln("// Gate AppProvider generated file ");
     res.writeln("// Do not modify by hand           ");
     res.writeln("// ********************************");
+    List<String> imports = [];
     for (var el in graph.injectables) {
-      res.writeln("import 'package:${el.path}';");
+      final importStatement = "import 'package:${el.path}';";
+      if (!imports.contains(importStatement)) {
+        res.writeln(importStatement);
+        imports.add(importStatement);
+      }
     }
     res.writeln("");
     res.writeln("class AppProvider {");

@@ -4,6 +4,11 @@
 <img src="doc/images/cover.png" alt="flutter anchored onboarding screen" />
 </p>
 
+## Motivation
+Providing Service should be independant from your pages or other code. 
+The DI pattern separates the responsibility of creating an object of the service class out of the client class.
+Also using code generation we can get rid of the boilerplate part. 
+
 ## Features
 - provide Injectable as a singleton
 - provide Injectable as a dynamic service
@@ -111,11 +116,16 @@ Once build runner is done, you can run your flutter app and use all injected cla
 | factoryName     |  *(optionnal)* The factory name to use                               | 
 | attrName        |  *(optionnal)* The attribute name to call it from your class         | 
 
+
+## Mock an injected dependency for testing
+*To be done*
+
+<hr/>
+
 ## FAQ
+*To be done*
 
-
-
-
+<hr/>
 <br><br>
 <a href="https://en.apparence.io"><img src="https://github.com/Apparence-io/bart/raw/master/.github/img/logo.png" alt="Apparence.io logo"></a>
 <p><small>Developed with 💙 &nbsp;by Apparence.io</small></p>

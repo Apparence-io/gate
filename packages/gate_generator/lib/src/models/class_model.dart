@@ -108,6 +108,7 @@ class ClassSchema {
 
 class Dependency {
   String type;
+  ClassSchema? classSchema;
 
   Dependency({required this.type});
 
