@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-
 /// Annotation to use on a class factory or constructor
 /// - the return type is entered into the dependency graph. The method will be
 ///   executed with injected arguments when the return type is injected.
