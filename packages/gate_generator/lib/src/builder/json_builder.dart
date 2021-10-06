@@ -22,8 +22,10 @@ class JsonBuilder implements Builder {
   @override
   Future<void> build(BuildStep buildStep) async {
     final outputId = buildStep.inputId.changeExtension(_generatedExtension);
-    final lib = await buildStep.resolver.libraryFor(buildStep.inputId, allowSyntaxErrors: allowSyntaxErrors);
-    final generatedOutputs = await _generate(lib, [generator], buildStep).toList();
+    final lib = await buildStep.resolver
+        .libraryFor(buildStep.inputId, allowSyntaxErrors: allowSyntaxErrors);
+    final generatedOutputs =
+        await _generate(lib, [generator], buildStep).toList();
     final contentBuffer = StringBuffer();
     for (var item in generatedOutputs) {
       contentBuffer.write(item);

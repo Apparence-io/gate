@@ -15,7 +15,8 @@ class GateGraphBuilder implements Builder {
   final OutputMode outputMode;
   final String buildExtension;
 
-  GateGraphBuilder(this.generator, {required this.outputMode, required this.buildExtension});
+  GateGraphBuilder(this.generator,
+      {required this.outputMode, required this.buildExtension});
 
   AssetId _fileOutput(BuildStep buildStep) {
     if (outputMode == OutputMode.single) {

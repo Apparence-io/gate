@@ -33,7 +33,8 @@ class AggregatingBuilder implements Builder {
     final output = _allFileOutput(buildStep);
     var res = StringBuffer();
     await for (final input in buildStep.findAssets(inputFiles)) {
-      final lib = await buildStep.resolver.libraryFor(input, allowSyntaxErrors: allowSyntaxErrors);
+      final lib = await buildStep.resolver
+          .libraryFor(input, allowSyntaxErrors: allowSyntaxErrors);
       res.writeln(await _generate(lib, [generator], buildStep));
     }
     return buildStep.writeAsString(output, res.toString());
