@@ -1,7 +1,7 @@
 # Gate - Dart/Flutter Dependency injection generator
  
 <p align="center">
-<img src="doc/images/cover.png" alt="flutter anchored onboarding screen" />
+<img src="https://github.com/Apparence-io/gate/raw/master/packages/gate_generator/doc/images/cover.png" alt="flutter anchored onboarding screen" />
 </p>
 
 ## Motivation
@@ -17,7 +17,7 @@ Also using code generation we can get rid of the boilerplate part.
 ## Getting started
 install gate with build_runner in you pubspec.yaml 
 ```
-dependencies
+dependencies:
   build_runner: ^X.X.X
   gate: ^X.X.X
 
@@ -113,7 +113,7 @@ Once build runner is done, you can run your flutter app and use all injected cla
 | Property        |      Description                                                     | 
 |-----------------|---------------------------------------------------------------------:|
 | type            |  The type to inject                                                  | 
-| factoryName     |  *(optionnal)* The factory name to use                               | 
+| factoryName     |  The factory name to use                                             | 
 | attrName        |  *(optionnal)* The attribute name to call it from your class         | 
 
 
