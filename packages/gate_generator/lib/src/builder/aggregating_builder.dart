@@ -1,7 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:gate_generator/src/generator/gate_provider_generator.dart';
-import 'package:gate_generator/src/generator/json_generator.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:path/path.dart' as p;
 import 'package:glob/glob.dart';
