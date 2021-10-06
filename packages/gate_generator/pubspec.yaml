@@ -10,8 +10,7 @@ dependencies:
   build: ^2.1.0
   code_builder: ^4.1.0
   dart_style: ^2.2.0
-  gate:
-    path: ../gate
+  gate: ^0.0.1
   meta: ^1.7.0
   path: ^1.8.0
   quiver: ^3.0.1
