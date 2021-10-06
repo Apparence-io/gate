@@ -1,0 +1,16 @@
+# See https://github.com/google/mono_repo.dart for details on this file
+self_validate: analyzer_and_format
+
+github:
+  on:
+    push:
+      branches:
+      - master
+      - 4_x
+    pull_request:
+    schedule:
+    - cron: "0 0 * * 0"
+
+merge_stages:
+- analyzer_and_format
+- unit_test
