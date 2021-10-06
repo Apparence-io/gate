@@ -1,7 +1,6 @@
 import 'package:build/build.dart';
 import 'package:gate_generator/src/generator/json_generator.dart';
 import 'package:path/path.dart' as p;
-import 'package:glob/glob.dart';
 import 'dart:async';
 
 enum OutputMode {
@@ -15,7 +14,8 @@ class GateGraphBuilder implements Builder {
   final OutputMode outputMode;
   final String buildExtension;
 
-  GateGraphBuilder(this.generator, {required this.outputMode, required this.buildExtension});
+  GateGraphBuilder(this.generator,
+      {required this.outputMode, required this.buildExtension});
 
   AssetId _fileOutput(BuildStep buildStep) {
     if (outputMode == OutputMode.single) {

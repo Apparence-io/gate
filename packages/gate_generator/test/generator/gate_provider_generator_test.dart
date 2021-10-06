@@ -1,18 +1,13 @@
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
-import 'package:gate_generator/src/builder/aggregating_builder.dart';
 import 'package:gate_generator/src/builder/graph_builder.dart';
 import 'package:gate_generator/src/generator/exceptions/gate_provider_exceptions.dart';
 import 'package:gate_generator/src/generator/gate_provider_generator.dart';
 import 'package:gate_generator/src/generator/graph_reader.dart';
-import 'package:gate_generator/src/models/class_model.dart';
 import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:source_gen/source_gen.dart';
 import 'package:test/test.dart';
 import 'package:glob/glob.dart';
 
@@ -24,7 +19,6 @@ class BuildStepMock extends Mock implements BuildStep {}
 void main() {
   late PackageAssetReader reader;
 
-  final buildAsset = AssetId('build', 'lib/src/gate_provider.dart');
   final buildTest = AssetId('build_test', 'lib/build_test.dart');
   final buildStepMock = BuildStepMock();
 
@@ -55,7 +49,9 @@ void main() {
         buildExtension: 'gate/gate_provider.dart',
       ),
       {'a|lib/a.txt': 'a'},
-      outputs: {'a|lib/gate/gate_provider.dart': graph.appProviderFactory.toString()},
+      outputs: {
+        'a|lib/gate/gate_provider.dart': graph.appProviderFactory.toString()
+      },
       reader: reader,
       rootPackage: 'a',
     );
@@ -72,9 +68,11 @@ void main() {
       AssetId('gate_generator', 'test/data/case_0/s2.gate_schema.json'),
       AssetId('gate_generator', 'test/data/case_0/s3.gate_schema.json'),
     ];
-    when(() => buildStepMock.findAssets(any())).thenAnswer((_) => Stream.fromIterable(assets));
+    when(() => buildStepMock.findAssets(any()))
+        .thenAnswer((_) => Stream.fromIterable(assets));
     for (var asset in assets) {
-      when(() => buildStepMock.readAsString(asset)).thenAnswer((_) => File(asset.path).readAsString());
+      when(() => buildStepMock.readAsString(asset))
+          .thenAnswer((_) => File(asset.path).readAsString());
     }
     var generatedString = await gateCodeGenerator.generate(buildStepMock);
     var analyzedClass = StringClassTestUtils.parse(generatedString);
@@ -97,9 +95,11 @@ void main() {
       AssetId('gate_generator', 'test/data/case_1/s2.gate_schema.json'),
       AssetId('gate_generator', 'test/data/case_1/s3.gate_schema.json'),
     ];
-    when(() => buildStepMock.findAssets(any())).thenAnswer((_) => Stream.fromIterable(assets));
+    when(() => buildStepMock.findAssets(any()))
+        .thenAnswer((_) => Stream.fromIterable(assets));
     for (var asset in assets) {
-      when(() => buildStepMock.readAsString(asset)).thenAnswer((_) => File(asset.path).readAsString());
+      when(() => buildStepMock.readAsString(asset))
+          .thenAnswer((_) => File(asset.path).readAsString());
     }
     var generatedString = await gateCodeGenerator.generate(buildStepMock);
     var analyzedClass = StringClassTestUtils.parse(generatedString);
@@ -122,9 +122,11 @@ void main() {
       AssetId('gate_generator', 'test/data/case_2/s2.gate_schema.json'),
       AssetId('gate_generator', 'test/data/case_2/s3.gate_schema.json'),
     ];
-    when(() => buildStepMock.findAssets(any())).thenAnswer((_) => Stream.fromIterable(assets));
+    when(() => buildStepMock.findAssets(any()))
+        .thenAnswer((_) => Stream.fromIterable(assets));
     for (var asset in assets) {
-      when(() => buildStepMock.readAsString(asset)).thenAnswer((_) => File(asset.path).readAsString());
+      when(() => buildStepMock.readAsString(asset))
+          .thenAnswer((_) => File(asset.path).readAsString());
     }
     var generatedString = await gateCodeGenerator.generate(buildStepMock);
     var analyzedClass = StringClassTestUtils.parse(generatedString);
@@ -154,11 +156,14 @@ void main() {
       AssetId('gate_generator', 'test/data/case_3/s2.gate_schema.json'),
       AssetId('gate_generator', 'test/data/case_3/s3.gate_schema.json'),
     ];
-    when(() => buildStepMock.findAssets(any())).thenAnswer((_) => Stream.fromIterable(assets));
+    when(() => buildStepMock.findAssets(any()))
+        .thenAnswer((_) => Stream.fromIterable(assets));
     for (var asset in assets) {
-      when(() => buildStepMock.readAsString(asset)).thenAnswer((_) => File(asset.path).readAsString());
+      when(() => buildStepMock.readAsString(asset))
+          .thenAnswer((_) => File(asset.path).readAsString());
     }
     // await gateCodeGenerator.generate(buildStepMock);
-    expect(() async => await gateCodeGenerator.generate(buildStepMock), throwsA(TypeMatcher<CyclicDepencyException>()));
+    expect(() async => await gateCodeGenerator.generate(buildStepMock),
+        throwsA(TypeMatcher<CyclicDepencyException>()));
   });
 }

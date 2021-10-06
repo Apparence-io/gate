@@ -2,7 +2,6 @@
 // Normal simple case
 // ***********************************
 import 'package:gate/gate.dart';
-import 'package:gate_generator/src/gate_provider.dart';
 
 @Injectable()
 class S1 {

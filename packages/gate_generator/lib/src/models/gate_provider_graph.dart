@@ -42,7 +42,8 @@ class GateProviderGraph {
   }
 
   /// returns a list of [ClassSchema] from an injectable dependency list
-  _getDependencyTree(ClassSchema injectable, Set<ClassSchema> visitedDependencies, StringBuffer treeLog) {
+  _getDependencyTree(ClassSchema injectable,
+      Set<ClassSchema> visitedDependencies, StringBuffer treeLog) {
     if (injectable.dependencies.isEmpty) {
       return;
     }
@@ -52,12 +53,14 @@ class GateProviderGraph {
         (element) => element.className == dependency.type,
         orElse: () => throw 'injectableDependency cannot be found',
       );
-      if (visitedDependencies.contains(injectableDependency) || injectable == injectableDependency) {
+      if (visitedDependencies.contains(injectableDependency) ||
+          injectable == injectableDependency) {
         throw CyclicDepencyException("");
       }
       visitedDependencies.add(injectableDependency);
       treeLog.writeln("   ${injectableDependency.className}");
-      _getDependencyTree(injectableDependency, HashSet.from(visitedDependencies), treeLog);
+      _getDependencyTree(
+          injectableDependency, HashSet.from(visitedDependencies), treeLog);
     }
   }
 

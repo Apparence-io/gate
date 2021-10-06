@@ -1,7 +1,7 @@
 import 'package:code_builder/code_builder.dart';
 
 abstract class ProviderFactory {
-  String get constructor;
+  Code get constructor;
 
   String get name;
 
@@ -9,5 +9,12 @@ abstract class ProviderFactory {
 
   String get parameters;
 
-  String build();
+  ProviderResult build();
+}
+
+class ProviderResult {
+  final Field? field;
+  final Method method;
+
+  ProviderResult(this.field, this.method);
 }

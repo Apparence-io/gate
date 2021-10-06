@@ -27,7 +27,8 @@ class AnalyzedAttr {
 class StringClassTestUtils {
   /// input is a dart class as a string
   static AnalyzedClass parse(String input) {
-    var result = parseString(content: input, path: '', throwIfDiagnostics: false);
+    var result =
+        parseString(content: input, path: '', throwIfDiagnostics: false);
     var rootUnit = result.unit.root;
     AnalyzedClass analyzedClass = AnalyzedClass();
 
@@ -45,11 +46,14 @@ class StringClassTestUtils {
         ));
         _parseNode(node, analyzedClass);
       } else if (node is FieldDeclaration) {
-        final attrType = node.fields.childEntities.whereType<VariableDeclaration>();
+        final attrType =
+            node.fields.childEntities.whereType<VariableDeclaration>();
         if (attrType.isNotEmpty) {
           analyzedClass.attrs.add(AnalyzedAttr(
             attrType.first.name.name,
-            node.fields.childEntities.firstWhere((element) => element is TypeName).toString(),
+            node.fields.childEntities
+                .firstWhere((element) => element is NamedType)
+                .toString(),
           ));
         }
         _parseNode(node, analyzedClass);

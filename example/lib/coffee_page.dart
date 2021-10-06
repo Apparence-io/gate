@@ -8,7 +8,8 @@ part 'coffee_page.gate_inject.g.part';
 @Inject(children: [
   InjectedChild("S1", factoryName: "build"),
   InjectedChild("S2B", factoryName: "build"),
-  InjectedChild("CoffeeService", factoryName: "simple", attrName: "coffeeService"),
+  InjectedChild("CoffeeService",
+      factoryName: "simple", attrName: "coffeeService"),
 ])
 class CoffeePage extends StatelessWidget {
   const CoffeePage({Key? key}) : super(key: key);

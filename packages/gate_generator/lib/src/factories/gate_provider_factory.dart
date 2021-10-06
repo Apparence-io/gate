@@ -1,7 +1,8 @@
-import 'package:gate_generator/src/models/class_model.dart';
+import 'package:code_builder/code_builder.dart';
+import 'package:dart_style/dart_style.dart';
+import 'package:gate_generator/src/factories/abstract_provider_factory.dart';
 import 'package:gate_generator/src/models/gate_provider_graph.dart';
 
-// TODO use code_builder to generate code
 class GateProviderFactory {
   final GateProviderGraph graph;
 
@@ -9,32 +10,40 @@ class GateProviderFactory {
 
   @override
   String toString() {
-    var res = StringBuffer();
-    res.writeln("// ********************************");
-    res.writeln("// Gate AppProvider generated file ");
-    res.writeln("// Do not modify by hand           ");
-    res.writeln("// ********************************");
-    List<String> imports = [];
+    final List<Field> singletons = [];
+    final List<Method> injectedElements = [];
+
     for (var el in graph.injectables) {
-      final importStatement = "import 'package:${el.path}';";
-      if (!imports.contains(importStatement)) {
-        res.writeln(importStatement);
-        imports.add(importStatement);
+      final ProviderResult result = el.providerFactory.build();
+      injectedElements.add(result.method);
+      if (result.field != null) {
+        singletons.add(result.field!);
       }
     }
-    res.writeln("");
-    res.writeln("class AppProvider {");
-    res.writeln("  ");
-    res.writeln('''  static final AppProvider instance = AppProvider._();''');
-    res.writeln("  ");
-    res.writeln('''  AppProvider._();''');
-    res.writeln("  ");
-    for (var el in graph.injectables) {
-      res.writeln("  // ${el.className};");
-      res.writeln(el.providerFactory.build());
-    }
-    res.writeln("  ");
-    res.writeln("}");
-    return res.toString();
+
+    final provider = Class((b) => b
+      ..docs.addAll([
+        '',
+        '// ********************************',
+        '// Gate AppProvider generated file',
+        '// Do not modify by hand',
+        '// ********************************'
+      ])
+      ..name = 'AppProvider'
+      ..fields.add(Field((b) => b
+        ..name = 'instance'
+        ..static = true
+        ..modifier = FieldModifier.final$
+        ..type = refer('AppProvider')
+        ..assignment = const Code('AppProvider._()')))
+      ..fields.addAll(singletons)
+      ..constructors.add(Constructor((b) => b..name = '_'))
+      ..methods.addAll(injectedElements));
+
+    final providerLibrary = Library((b) => b..body.add(provider));
+
+    final emitter = DartEmitter.scoped();
+
+    return DartFormatter().format('${providerLibrary.accept(emitter)}');
   }
 }

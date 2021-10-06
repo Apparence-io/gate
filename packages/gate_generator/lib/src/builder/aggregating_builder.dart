@@ -1,7 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:gate_generator/src/generator/gate_provider_generator.dart';
-import 'package:gate_generator/src/generator/json_generator.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:path/path.dart' as p;
 import 'package:glob/glob.dart';
@@ -33,7 +31,8 @@ class AggregatingBuilder implements Builder {
     final output = _allFileOutput(buildStep);
     var res = StringBuffer();
     await for (final input in buildStep.findAssets(inputFiles)) {
-      final lib = await buildStep.resolver.libraryFor(input, allowSyntaxErrors: allowSyntaxErrors);
+      final lib = await buildStep.resolver
+          .libraryFor(input, allowSyntaxErrors: allowSyntaxErrors);
       res.writeln(await _generate(lib, [generator], buildStep));
     }
     return buildStep.writeAsString(output, res.toString());

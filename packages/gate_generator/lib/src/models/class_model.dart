@@ -10,7 +10,8 @@ enum InjectionType {
   DYNAMIC,
 }
 
-InjectionType injectTypefromJson(String value) => InjectionType.values.firstWhere((element) => element.toString() == value);
+InjectionType injectTypefromJson(String value) =>
+    InjectionType.values.firstWhere((element) => element.toString() == value);
 
 class ClassSchema {
   String path;
@@ -37,7 +38,9 @@ class ClassSchema {
         path: path, // classElement.source!.fullName
         className: classElement.displayName,
         constructor: element.displayName,
-        dependencies: element.parameters.map((param) => Dependency.fromParameter(param)).toList(),
+        dependencies: element.parameters
+            .map((param) => Dependency.fromParameter(param))
+            .toList(),
         injectionType: InjectionType.SINGLETON,
       );
 
@@ -50,7 +53,9 @@ class ClassSchema {
         path: path,
         className: classElement.displayName,
         constructor: element.displayName,
-        dependencies: element.parameters.map((param) => Dependency.fromParameter(param)).toList(),
+        dependencies: element.parameters
+            .map((param) => Dependency.fromParameter(param))
+            .toList(),
         injectionType: InjectionType.DYNAMIC,
       );
 
@@ -59,11 +64,14 @@ class ClassSchema {
         className: json["className"],
         constructor: json["constructor"],
         injectionType: injectTypefromJson(json["injectionType"]),
-        dependencies: List.from(json["dependencies"]).map((x) => Dependency.fromJson(x)).toList(),
+        dependencies: List.from(json["dependencies"])
+            .map((x) => Dependency.fromJson(x))
+            .toList(),
         // dependencies: List<Dependency>.from(json["dependencies"].map((x) => x)),
       );
 
-  factory ClassSchema.fromRawJson(String str) => ClassSchema.fromJson(json.decode(str));
+  factory ClassSchema.fromRawJson(String str) =>
+      ClassSchema.fromJson(json.decode(str));
 
   ProviderFactory get providerFactory {
     switch (injectionType) {
@@ -100,7 +108,11 @@ class ClassSchema {
       );
 
   @override
-  bool operator ==(dynamic other) => other is ClassSchema && other.constructor == constructor && other.className == className && other.path == path;
+  bool operator ==(dynamic other) =>
+      other is ClassSchema &&
+      other.constructor == constructor &&
+      other.className == className &&
+      other.path == path;
 
   @override
   int get hashCode => constructor.hashCode ^ className.hashCode ^ path.hashCode;
