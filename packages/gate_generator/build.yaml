@@ -7,7 +7,7 @@ targets:
         - test/*
       gate_generator:
         generate_for:
-        - example/*
+        - test/*
       inject_generator:
         generate_for:
         - test/*
@@ -16,7 +16,7 @@ targets:
 builders:
   gate_schema:
     target: ":gate_schema"
-    import: "package:gate_generator/gate_builder.dart"
+    import: "package:gate_generator/gate_generator.dart"
     builder_factories: ["classSchemaBuilder"]
     build_extensions: {".dart": [".gate_schema.dart"]}
     auto_apply: root_package
@@ -25,7 +25,7 @@ builders:
     runs_before: ["gate_generator", "inject_generator"]
   gate_generator:
     target: ":gate_generator"
-    import: "package:gate_generator/gate_builder.dart"
+    import: "package:gate_generator/gate_generator.dart"
     builder_factories: ["gateBuilder"]
     build_extensions: {".json": [".gate.dart"]}
     auto_apply: root_package
@@ -33,7 +33,7 @@ builders:
     applies_builders: ["source_gen|combining_builder"]
   inject_generator:
     target: ":inject_generator"
-    import: "package:gate_generator/gate_builder.dart"
+    import: "package:gate_generator/gate_generator.dart"
     builder_factories: ["gateInjectBuilder"]
     build_extensions: {".dart": ["gate_inject.g.part"]}
     auto_apply: dependents
