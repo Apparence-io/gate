@@ -8,7 +8,6 @@ void main() {
   group('GateSchemaGenerator ', () {
     late PackageAssetReader reader;
 
-    final buildAsset = AssetId('build', 'lib/src/gate_provider.dart');
     final buildTest = AssetId('build_test', 'lib/build_test.dart');
 
     setUp(() async {
