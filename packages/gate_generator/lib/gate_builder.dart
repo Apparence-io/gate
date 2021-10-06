@@ -10,7 +10,8 @@ import 'src/generator/gate_inject_generator.dart';
 import 'src/generator/gate_provider_generator.dart';
 import 'src/generator/gate_schema_generator.dart';
 
-Builder classSchemaBuilder(BuilderOptions options) => JsonBuilder(GateSchemaGenerator());
+Builder classSchemaBuilder(BuilderOptions options) =>
+    JsonBuilder(GateSchemaGenerator());
 
 Builder gateBuilder(BuilderOptions options) => GateGraphBuilder(
       GateCodeGenerator(GateGraphReader.instance),
@@ -18,4 +19,5 @@ Builder gateBuilder(BuilderOptions options) => GateGraphBuilder(
       buildExtension: 'gate/gate_provider.dart',
     );
 
-Builder gateInjectBuilder(BuilderOptions options) => SharedPartBuilder([GateInjectGenerator()], 'gate_inject');
+Builder gateInjectBuilder(BuilderOptions options) =>
+    SharedPartBuilder([GateInjectGenerator()], 'gate_inject');

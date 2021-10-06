@@ -13,7 +13,8 @@ class GateGraphReader {
 
   static final GateGraphReader instance = GateGraphReader(folder: 'lib');
 
-  GateGraphReader({required String folder}) : inputFiles = Glob('$folder/**.gate_schema.json');
+  GateGraphReader({required String folder})
+      : inputFiles = Glob('$folder/**.gate_schema.json');
 
   Future<void> build(BuildStep buildStep) async {
     log.info("**************************");
