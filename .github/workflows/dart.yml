@@ -1,0 +1,141 @@
+# Created with package:mono_repo v5.0.2
+name: Dart CI
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+
+jobs:
+  job_001:
+    name: "analyzer_and_format; Dart 2.14.2; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;dart:2.14.2;packages:packages/gate_generator;commands:format-analyze"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;dart:2.14.2;packages:packages/gate_generator
+            os:ubuntu-latest;pub-cache-hosted;dart:2.14.2
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@v1.2
+        with:
+          sdk: "2.14.2"
+      - id: checkout
+        uses: actions/checkout@v2.3.4
+      - id: packages_gate_generator_pub_upgrade
+        name: packages/gate_generator; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: dart pub upgrade
+      - name: "packages/gate_generator; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_gate_generator_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/gate_generator; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_gate_generator_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: dart analyze --fatal-infos .
+  job_002:
+    name: "analyzer_and_format; Dart dev; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;dart:dev;packages:packages/gate_generator;commands:format-analyze"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;dart:dev;packages:packages/gate_generator
+            os:ubuntu-latest;pub-cache-hosted;dart:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@v1.2
+        with:
+          sdk: dev
+      - id: checkout
+        uses: actions/checkout@v2.3.4
+      - id: packages_gate_generator_pub_upgrade
+        name: packages/gate_generator; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: dart pub upgrade
+      - name: "packages/gate_generator; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_gate_generator_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/gate_generator; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_gate_generator_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: dart analyze --fatal-infos .
+  job_003:
+    name: "unit_test; Dart 2.14.2; `dart test`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;dart:2.14.2;packages:packages/gate_generator;commands:test"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;dart:2.14.2;packages:packages/gate_generator
+            os:ubuntu-latest;pub-cache-hosted;dart:2.14.2
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@v1.2
+        with:
+          sdk: "2.14.2"
+      - id: checkout
+        uses: actions/checkout@v2.3.4
+      - id: packages_gate_generator_pub_upgrade
+        name: packages/gate_generator; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: dart pub upgrade
+      - name: packages/gate_generator; dart test
+        if: "always() && steps.packages_gate_generator_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: dart test
+    needs:
+      - job_001
+      - job_002
+  job_004:
+    name: "unit_test; Dart dev; `dart test`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;dart:dev;packages:packages/gate_generator;commands:test"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;dart:dev;packages:packages/gate_generator
+            os:ubuntu-latest;pub-cache-hosted;dart:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - uses: dart-lang/setup-dart@v1.2
+        with:
+          sdk: dev
+      - id: checkout
+        uses: actions/checkout@v2.3.4
+      - id: packages_gate_generator_pub_upgrade
+        name: packages/gate_generator; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: dart pub upgrade
+      - name: packages/gate_generator; dart test
+        if: "always() && steps.packages_gate_generator_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/gate_generator
+        run: dart test
+    needs:
+      - job_001
+      - job_002

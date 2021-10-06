@@ -120,6 +120,13 @@ Once build runner is done, you can run your flutter app and use all injected cla
 ## Mock an injected dependency for testing
 *To be done*
 
+## Run tests
+```bash
+dart pub global activate coverage
+dart test --coverage="coverage"
+format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib
+```
+
 <hr/>
 
 ## FAQ

@@ -14,4 +14,5 @@ The annotation package
 
 ## Example
 - [Source code](./example/)
+
 An example showing how to set up and use Gate
