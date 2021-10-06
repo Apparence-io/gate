@@ -1,7 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:gate_generator/src/factories/abstract_provider_factory.dart';
-import 'package:gate_generator/src/models/class_model.dart';
 import 'package:gate_generator/src/models/gate_provider_graph.dart';
 
 class GateProviderFactory {

@@ -1,9 +1,7 @@
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
 import 'package:gate_generator/src/builder/json_builder.dart';
-import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:gate_generator/src/generator/gate_schema_generator.dart';
-import 'package:source_gen/source_gen.dart';
 import 'package:test/test.dart';
 
 void main() {

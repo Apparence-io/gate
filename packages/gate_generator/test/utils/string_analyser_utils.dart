@@ -52,7 +52,7 @@ class StringClassTestUtils {
           analyzedClass.attrs.add(AnalyzedAttr(
             attrType.first.name.name,
             node.fields.childEntities
-                .firstWhere((element) => element is TypeName)
+                .firstWhere((element) => element is NamedType)
                 .toString(),
           ));
         }

@@ -1,18 +1,13 @@
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
-import 'package:gate_generator/src/builder/aggregating_builder.dart';
 import 'package:gate_generator/src/builder/graph_builder.dart';
 import 'package:gate_generator/src/generator/exceptions/gate_provider_exceptions.dart';
 import 'package:gate_generator/src/generator/gate_provider_generator.dart';
 import 'package:gate_generator/src/generator/graph_reader.dart';
-import 'package:gate_generator/src/models/class_model.dart';
 import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:source_gen/source_gen.dart';
 import 'package:test/test.dart';
 import 'package:glob/glob.dart';
 
