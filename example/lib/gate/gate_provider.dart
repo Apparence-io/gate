@@ -1,35 +1,31 @@
-// ********************************
-// Gate AppProvider generated file 
-// Do not modify by hand           
-// ********************************
-import 'package:gate_example/coffee_service.dart';
-import 'package:gate_example/todo.dart';
+import 'package:gate_example/coffee_service.dart' as _i1;
+import 'package:gate_example/todo.dart' as _i2;
 
+// ********************************
+// Gate AppProvider generated file
+// Do not modify by hand
+// ********************************
 class AppProvider {
-  
-  static final AppProvider instance = AppProvider._();
-  
   AppProvider._();
-  
-  // CoffeeService;
-  late final CoffeeService _coffeeService = CoffeeService.simple(getS1Build(),);
-  
-  CoffeeService getCoffeeServiceSimple() => _coffeeService;
-  
 
-  // S1;
-  S1 getS1Build() => S1.build();
-  
+  static final AppProvider instance = AppProvider._();
 
-  // S2B;
-  late final S2B _s2B = S2B.build(getCoffeeServiceSimple(),);
-  
-  S2B getS2BBuild() => _s2B;
-  
+// CoffeeService singleton
+  late final _i1.CoffeeService _coffeeService = _i1.CoffeeService.simple(
+    getS1Build(),
+  );
 
-  // TodoService;
-  TodoService getTodoServiceBean() => TodoService.bean();
-  
+// S2B singleton
+  late final _i1.S2B _s2B = _i1.S2B.build(
+    getCoffeeServiceSimple(),
+  );
 
-  
+// injected CoffeeService
+  _i1.CoffeeService getCoffeeServiceSimple() => _coffeeService;
+// injected S1
+  _i1.S1 getS1Build() => _i1.S1.build();
+// injected S2B
+  _i1.S2B getS2BBuild() => _s2B;
+// injected TodoService
+  _i2.TodoService getTodoServiceBean() => _i2.TodoService.bean();
 }
