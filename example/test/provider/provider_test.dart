@@ -8,22 +8,50 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gate_example/coffee_service.dart';
 import 'package:gate_example/gate/gate_provider.dart';
+import 'package:gate_example/todo.dart';
 import 'package:mocktail/mocktail.dart';
 
 class CoffeeServiceMock extends Mock implements CoffeeService {}
 
+class S1ServiceMock extends Mock implements S1 {}
+
+class S2BServiceMock extends Mock implements S2B {}
+
+class TodoServiceMock extends Mock implements TodoService {}
+
 void main() {
-  test('Test mocks', () async {
-    expect(appProvider.getCoffeeServiceSimple().getMenu(), equals('No menu'));
+  // Initialize mocks
+  final CoffeeService coffeeServiceMock = CoffeeServiceMock();
+  final S1 s1ServiceMock = S1ServiceMock();
+  final S2B s2BServiceMock = S2BServiceMock();
+  final TodoService todoServiceMock = TodoServiceMock();
 
-    final CoffeeService coffeeService = CoffeeServiceMock();
-    when(() => coffeeService.getMenu()).thenReturn("Best menu");
-    appProvider.setCoffeeServiceSimpleMock(coffeeService);
+  group('Mock injection group', () {
+    setUp(() {
+      when(() => coffeeServiceMock.getMenu()).thenReturn("Best menu");
+      // Set injected services with mocks
+      appProvider.setCoffeeServiceSimpleMock(coffeeServiceMock);
+      appProvider.setS1BuildMock(s1ServiceMock);
+      appProvider.setS2BBuildMock(s2BServiceMock);
+      appProvider.setTodoServiceBeanMock(todoServiceMock);
+    });
 
-    expect(appProvider.getCoffeeServiceSimple().getMenu(), equals('Best menu'));
+    tearDownAll(() {
+      // Remove mocks from appProvider (real ones will be used)
+      appProvider.setCoffeeServiceSimpleMock(null);
+      appProvider.setS1BuildMock(null);
+      appProvider.setS2BBuildMock(null);
+      appProvider.setTodoServiceBeanMock(null);
+    });
 
-    appProvider.setCoffeeServiceSimpleMock(null);
+    test('Test mocks injection', () async {
+      expect(appProvider.getCoffeeServiceSimple().getMenu(),
+          equals('Best menu')); // Mocked returned value
 
-    expect(appProvider.getCoffeeServiceSimple().getMenu(), equals('No menu'));
+      appProvider.setCoffeeServiceSimpleMock(null);
+
+      expect(appProvider.getCoffeeServiceSimple().getMenu(),
+          equals('No menu')); // True value (not mocked)
+    });
   });
 }
