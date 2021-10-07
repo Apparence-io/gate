@@ -14,8 +14,9 @@ abstract class BaseProviderFactory implements ProviderFactory {
       : "${schema.className}.${schema.constructor}($parameters)";
 
   @override
-  String get name =>
-      "${schema.className[0].toLowerCase()}${schema.className.substring(1)}";
+  String get name => schema.constructor.isEmpty
+      ? "${schema.className[0].toLowerCase()}${schema.className.substring(1)}"
+      : "${schema.className[0].toLowerCase()}${schema.className.substring(1)}${schema.constructor[0].toUpperCase()}${schema.constructor.substring(1)}";
 
   @override
   String get getMethod {

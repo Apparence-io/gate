@@ -78,9 +78,9 @@ void main() {
     var analyzedClass = StringClassTestUtils.parse(generatedString);
 
     expect(analyzedClass.attrs.length, 4);
-    expect(analyzedClass.attrs[1].name, '_s1Mock');
-    expect(analyzedClass.attrs[2].name, '_s2Mock');
-    expect(analyzedClass.attrs[3].name, '_s3Mock');
+    expect(analyzedClass.attrs[1].name, '_s1BuildMock');
+    expect(analyzedClass.attrs[2].name, '_s2BuildMock');
+    expect(analyzedClass.attrs[3].name, '_s3BuildMock');
     expect(analyzedClass.getters.length, 6);
     expect(analyzedClass.getters[0].name, "getS1Build");
     expect(analyzedClass.getters[1].name, "setS1BuildMock");
@@ -112,9 +112,9 @@ void main() {
     var analyzedClass = StringClassTestUtils.parse(generatedString);
 
     expect(analyzedClass.attrs.length, 4);
-    expect(analyzedClass.attrs[1].name, '_s1Mock');
-    expect(analyzedClass.attrs[2].name, '_s2Mock');
-    expect(analyzedClass.attrs[3].name, '_s3Mock');
+    expect(analyzedClass.attrs[1].name, '_s1BuildMock');
+    expect(analyzedClass.attrs[2].name, '_s2BuildMock');
+    expect(analyzedClass.attrs[3].name, '_s3BuildMock');
 
     expect(analyzedClass.getters.length, 6);
     expect(analyzedClass.getters[0].name, "getS1Build");
@@ -148,12 +148,12 @@ void main() {
 
     // 4 attrs because we got AppProvider instance attr first
     expect(analyzedClass.attrs.length, 7);
-    expect(analyzedClass.attrs[1].name, '_s1');
-    expect(analyzedClass.attrs[2].name, '_s1Mock');
-    expect(analyzedClass.attrs[3].name, '_s2');
-    expect(analyzedClass.attrs[4].name, '_s2Mock');
-    expect(analyzedClass.attrs[5].name, '_s3');
-    expect(analyzedClass.attrs[6].name, '_s3Mock');
+    expect(analyzedClass.attrs[1].name, '_s1Build');
+    expect(analyzedClass.attrs[2].name, '_s1BuildMock');
+    expect(analyzedClass.attrs[3].name, '_s2Build');
+    expect(analyzedClass.attrs[4].name, '_s2BuildMock');
+    expect(analyzedClass.attrs[5].name, '_s3Build');
+    expect(analyzedClass.attrs[6].name, '_s3BuildMock');
     expect(analyzedClass.getters.length, 6);
     expect(analyzedClass.getters[0].name, "getS1Build");
     expect(analyzedClass.getters[1].name, "setS1BuildMock");
