@@ -14,6 +14,10 @@ class CoffeeService {
   void pump() {
     print("CoffeeService it's working");
   }
+
+  String getMenu() {
+    return "No menu";
+  }
 }
 
 @Injectable()

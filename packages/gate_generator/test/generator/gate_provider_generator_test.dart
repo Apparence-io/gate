@@ -77,10 +77,17 @@ void main() {
     var generatedString = await gateCodeGenerator.generate(buildStepMock);
     var analyzedClass = StringClassTestUtils.parse(generatedString);
 
-    expect(analyzedClass.getters.length, 3);
+    expect(analyzedClass.attrs.length, 4);
+    expect(analyzedClass.attrs[1].name, '_s1BuildMock');
+    expect(analyzedClass.attrs[2].name, '_s2BuildMock');
+    expect(analyzedClass.attrs[3].name, '_s3BuildMock');
+    expect(analyzedClass.getters.length, 6);
     expect(analyzedClass.getters[0].name, "getS1Build");
-    expect(analyzedClass.getters[1].name, "getS2Build");
-    expect(analyzedClass.getters[2].name, "getS3Build");
+    expect(analyzedClass.getters[1].name, "setS1BuildMock");
+    expect(analyzedClass.getters[2].name, "getS2Build");
+    expect(analyzedClass.getters[3].name, "setS2BuildMock");
+    expect(analyzedClass.getters[4].name, "getS3Build");
+    expect(analyzedClass.getters[5].name, "setS3BuildMock");
   });
 
   test(''' 
@@ -104,10 +111,18 @@ void main() {
     var generatedString = await gateCodeGenerator.generate(buildStepMock);
     var analyzedClass = StringClassTestUtils.parse(generatedString);
 
-    expect(analyzedClass.getters.length, 3);
+    expect(analyzedClass.attrs.length, 4);
+    expect(analyzedClass.attrs[1].name, '_s1BuildMock');
+    expect(analyzedClass.attrs[2].name, '_s2BuildMock');
+    expect(analyzedClass.attrs[3].name, '_s3BuildMock');
+
+    expect(analyzedClass.getters.length, 6);
     expect(analyzedClass.getters[0].name, "getS1Build");
-    expect(analyzedClass.getters[1].name, "getS2Build");
-    expect(analyzedClass.getters[2].name, "getS3Build");
+    expect(analyzedClass.getters[1].name, "setS1BuildMock");
+    expect(analyzedClass.getters[2].name, "getS2Build");
+    expect(analyzedClass.getters[3].name, "setS2BuildMock");
+    expect(analyzedClass.getters[4].name, "getS3Build");
+    expect(analyzedClass.getters[5].name, "setS3BuildMock");
   });
 
   test(''' 
@@ -131,15 +146,21 @@ void main() {
     var generatedString = await gateCodeGenerator.generate(buildStepMock);
     var analyzedClass = StringClassTestUtils.parse(generatedString);
 
-    expect(analyzedClass.getters.length, 3);
     // 4 attrs because we got AppProvider instance attr first
-    expect(analyzedClass.attrs.length, 4);
-    expect(analyzedClass.attrs[1].name, '_s1');
-    expect(analyzedClass.attrs[2].name, '_s2');
-    expect(analyzedClass.attrs[3].name, '_s3');
+    expect(analyzedClass.attrs.length, 7);
+    expect(analyzedClass.attrs[1].name, '_s1Build');
+    expect(analyzedClass.attrs[2].name, '_s1BuildMock');
+    expect(analyzedClass.attrs[3].name, '_s2Build');
+    expect(analyzedClass.attrs[4].name, '_s2BuildMock');
+    expect(analyzedClass.attrs[5].name, '_s3Build');
+    expect(analyzedClass.attrs[6].name, '_s3BuildMock');
+    expect(analyzedClass.getters.length, 6);
     expect(analyzedClass.getters[0].name, "getS1Build");
-    expect(analyzedClass.getters[1].name, "getS2Build");
-    expect(analyzedClass.getters[2].name, "getS3Build");
+    expect(analyzedClass.getters[1].name, "setS1BuildMock");
+    expect(analyzedClass.getters[2].name, "getS2Build");
+    expect(analyzedClass.getters[3].name, "setS2BuildMock");
+    expect(analyzedClass.getters[4].name, "getS3Build");
+    expect(analyzedClass.getters[5].name, "setS3BuildMock");
   });
 
   test(''' 
