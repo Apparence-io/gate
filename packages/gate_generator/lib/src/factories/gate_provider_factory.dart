@@ -15,10 +15,12 @@ class GateProviderFactory {
 
     for (var el in graph.injectables) {
       final ProviderResult result = el.providerFactory.build();
-      injectedElements.add(result.method);
+      injectedElements.add(result.getInjectedMethod);
+      injectedElements.add(result.setMockInjectedMethod);
       if (result.field != null) {
         singletons.add(result.field!);
       }
+      singletons.add(result.mockedField);
     }
 
     final provider = Class((b) => b

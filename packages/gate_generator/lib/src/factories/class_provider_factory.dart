@@ -9,23 +9,28 @@ abstract class BaseProviderFactory implements ProviderFactory {
   BaseProviderFactory(this.schema);
 
   @override
-  Code get constructor => schema.constructor.isEmpty
-      ? refer(schema.className, 'package:${schema.path}')
-          .call([refer(parameters)]).code
-      : refer(schema.className, 'package:${schema.path}')
-          .property(schema.constructor)
-          .call([refer(parameters)]).code;
+  String get constructor => schema.constructor.isEmpty
+      ? "${schema.className}($parameters)"
+      : "${schema.className}.${schema.constructor}($parameters)";
 
   @override
   String get name =>
       "${schema.className[0].toLowerCase()}${schema.className.substring(1)}";
 
   @override
-  String get method {
+  String get getMethod {
     if (schema.constructor.isNotEmpty) {
       return "get${schema.className}${schema.constructor[0].toUpperCase()}${schema.constructor.substring(1)}";
     }
     return "get${schema.className}";
+  }
+
+  @override
+  String get setMockMethod {
+    if (schema.constructor.isNotEmpty) {
+      return "set${schema.className}${schema.constructor[0].toUpperCase()}${schema.constructor.substring(1)}Mock";
+    }
+    return "set${schema.className}Mock";
   }
 
   @override
@@ -35,10 +40,38 @@ abstract class BaseProviderFactory implements ProviderFactory {
       if (element.classSchema == null) {
         throw "element cannot be created. ${element.type} must be Injectable.";
       }
-      res.write("${element.classSchema!.providerFactory.method}(),");
+      res.write("${element.classSchema!.providerFactory.getMethod}(),");
     }
     return res.toString();
   }
+
+  Expression _generateConstructor() => schema.constructor.isEmpty
+      ? refer(schema.className, 'package:${schema.path}')
+          .call([refer(parameters)])
+      : refer(schema.className, 'package:${schema.path}')
+          .property(schema.constructor)
+          .call([refer(parameters)]);
+
+  Field _generateMockField() => Field((b) => b
+    ..docs.add('// ${schema.className} mock')
+    ..type = refer('${schema.className}?', 'package:${schema.path}')
+    ..name = '_${name}Mock');
+
+  Method _generateGetInjectedMethod(final Code body) => Method((b) => b
+    ..docs.add('// injected ${schema.className}')
+    ..lambda = true
+    ..returns = refer(schema.className, 'package:${schema.path}')
+    ..name = getMethod
+    ..body = body);
+
+  Method _generateSetMockMethod() => Method.returnsVoid(((b) => b
+    ..docs.add('// Set ${schema.className} mock')
+    ..lambda = true
+    ..name = setMockMethod
+    ..requiredParameters.add(Parameter((b) => b
+      ..name = 'mock'
+      ..type = refer(schema.className, 'package:${schema.path}')))
+    ..body = Code('_${name}Mock = mock')));
 }
 
 class SingletonProviderFactory extends BaseProviderFactory {
@@ -46,22 +79,21 @@ class SingletonProviderFactory extends BaseProviderFactory {
 
   @override
   ProviderResult build() {
-    final Field field = Field((b) => b
+    final Field fieldSingleton = Field((b) => b
       ..docs.add('// ${schema.className} singleton')
       ..late = true
       ..modifier = FieldModifier.final$
       ..type = refer(schema.className, 'package:${schema.path}')
       ..name = '_$name'
-      ..assignment = constructor);
+      ..assignment = _generateConstructor().code);
 
-    final Method method = Method((b) => b
-      ..docs.add('// injected ${schema.className}')
-      ..lambda = true
-      ..returns = refer(schema.className, 'package:${schema.path}')
-      ..name = this.method
-      ..body = Code('_$name'));
+    final Field mockedInjectedSingletonField = _generateMockField();
 
-    return ProviderResult(field, method);
+    final Method getInjectedSingletonMethod =
+        _generateGetInjectedMethod(Code('_${name}Mock ?? _$name'));
+
+    return ProviderResult(fieldSingleton, mockedInjectedSingletonField,
+        getInjectedSingletonMethod, _generateSetMockMethod());
   }
 }
 
@@ -70,13 +102,12 @@ class DynamicProviderFactory extends BaseProviderFactory {
 
   @override
   ProviderResult build() {
-    final Method method = Method((b) => b
-      ..docs.add('// injected ${schema.className}')
-      ..returns = refer(schema.className, 'package:${schema.path}')
-      ..name = this.method
-      ..lambda = true
-      ..body = constructor);
+    final Field mockedFieldInjectedDynamicField = _generateMockField();
 
-    return ProviderResult(null, method);
+    final Method getInjectedDynamicMethod = _generateGetInjectedMethod(
+        refer("_${name}Mock").ifNullThen(_generateConstructor()).code);
+
+    return ProviderResult(null, mockedFieldInjectedDynamicField,
+        getInjectedDynamicMethod, _generateSetMockMethod());
   }
 }
