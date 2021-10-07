@@ -52,3 +52,5 @@ class AppProvider {
 // Set TodoService mock
   void setTodoServiceBeanMock(_i2.TodoService mock) => _todoServiceMock = mock;
 }
+
+final AppProvider appProvider = AppProvider.instance;

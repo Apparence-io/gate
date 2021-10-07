@@ -42,7 +42,14 @@ class GateProviderFactory {
       ..constructors.add(Constructor((b) => b..name = '_'))
       ..methods.addAll(injectedElements));
 
-    final providerLibrary = Library((b) => b..body.add(provider));
+    final getProviderMethod = Field((b) => b
+      ..modifier = FieldModifier.final$
+      ..type = refer('AppProvider')
+      ..name = 'appProvider'
+      ..assignment = Code("AppProvider.instance"));
+
+    final providerLibrary =
+        Library((b) => b..body.addAll([provider, getProviderMethod]));
 
     final emitter = DartEmitter.scoped();
 
