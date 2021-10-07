@@ -21,5 +21,9 @@ void main() {
     appProvider.setCoffeeServiceSimpleMock(coffeeService);
 
     expect(appProvider.getCoffeeServiceSimple().getMenu(), equals('Best menu'));
+
+    appProvider.setCoffeeServiceSimpleMock(null);
+
+    expect(appProvider.getCoffeeServiceSimple().getMenu(), equals('No menu'));
   });
 }

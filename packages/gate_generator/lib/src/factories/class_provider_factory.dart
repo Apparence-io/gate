@@ -71,7 +71,7 @@ abstract class BaseProviderFactory implements ProviderFactory {
     ..name = setMockMethod
     ..requiredParameters.add(Parameter((b) => b
       ..name = 'mock'
-      ..type = refer(schema.className, 'package:${schema.path}')))
+      ..type = refer('${schema.className}?', 'package:${schema.path}')))
     ..body = Code('_${name}Mock = mock')));
 }
 

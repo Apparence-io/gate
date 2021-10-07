@@ -36,21 +36,21 @@ class AppProvider {
   _i1.CoffeeService getCoffeeServiceSimple() =>
       _coffeeServiceSimpleMock ?? _coffeeServiceSimple;
 // Set CoffeeService mock
-  void setCoffeeServiceSimpleMock(_i1.CoffeeService mock) =>
+  void setCoffeeServiceSimpleMock(_i1.CoffeeService? mock) =>
       _coffeeServiceSimpleMock = mock;
 // injected S1
   _i1.S1 getS1Build() => _s1BuildMock ?? _i1.S1.build();
 // Set S1 mock
-  void setS1BuildMock(_i1.S1 mock) => _s1BuildMock = mock;
+  void setS1BuildMock(_i1.S1? mock) => _s1BuildMock = mock;
 // injected S2B
   _i1.S2B getS2BBuild() => _s2BBuildMock ?? _s2BBuild;
 // Set S2B mock
-  void setS2BBuildMock(_i1.S2B mock) => _s2BBuildMock = mock;
+  void setS2BBuildMock(_i1.S2B? mock) => _s2BBuildMock = mock;
 // injected TodoService
   _i2.TodoService getTodoServiceBean() =>
       _todoServiceBeanMock ?? _i2.TodoService.bean();
 // Set TodoService mock
-  void setTodoServiceBeanMock(_i2.TodoService mock) =>
+  void setTodoServiceBeanMock(_i2.TodoService? mock) =>
       _todoServiceBeanMock = mock;
 }
 
