@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
 import 'package:gate_generator/src/builder/graph_builder.dart';
@@ -10,6 +8,7 @@ import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:glob/glob.dart';
+import 'package:universal_io/io.dart';
 
 import '../utils/string_analyser_utils.dart';
 
