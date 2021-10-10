@@ -63,6 +63,7 @@ InjectedChild use
 
 ```dart
 import 'package:gate_example/gate/gate_provider.dart';
+import 'package:gate_example/gate/coffee_service.dart';
 part 'coffee_page.gate_inject.g.part';
 
 @Inject(children: [
@@ -82,6 +83,8 @@ class CoffeePage extends StatelessWidget {
 You can inject as many dependency as you want into your class as long as their are Injectable. 
 > don't forget to add ```part 'coffee_page.gate_inject.g.part';``` 
 > this will be genererated on next step
+> don't forget to import "gate_provider.dart" that is generated next
+> import your service (coffee_service.dart too)
 
 
 ### 3 - generate code
