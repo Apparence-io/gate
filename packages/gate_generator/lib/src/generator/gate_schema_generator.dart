@@ -14,8 +14,7 @@ class GateSchemaGenerator extends GeneratorForAnnotation<Injectable> {
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) async {
     classList.clear();
     for (var annotatedElement in library.annotatedWith(typeChecker)) {
-      generateForAnnotatedElement(
-          annotatedElement.element, annotatedElement.annotation, buildStep);
+      generateForAnnotatedElement(annotatedElement.element, annotatedElement.annotation, buildStep);
     }
     if (classList.isEmpty) return '';
     JsonEncoder encoder = JsonEncoder.withIndent('  ');
@@ -23,8 +22,7 @@ class GateSchemaGenerator extends GeneratorForAnnotation<Injectable> {
   }
 
   @override
-  generateForAnnotatedElement(
-      Element element, ConstantReader annotation, BuildStep buildStep) {
+  generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
     if (element is! ClassElement) {
       throw InvalidGenerationSourceError(
         '`@Injectable()` can only be used on classes.',
@@ -36,7 +34,8 @@ class GateSchemaGenerator extends GeneratorForAnnotation<Injectable> {
         continue;
       }
       var absPath = buildStep.inputId.path.replaceFirst('lib/', '');
-      String path = "${buildStep.inputId.package}/$absPath";
+      var packageName = buildStep.inputId.package;
+      String path = "$packageName/$absPath";
       if (isProvider(el)) {
         classList.add(ClassSchema.builder(element, el, path));
       } else if (isSingleton(el)) {
@@ -48,10 +47,7 @@ class GateSchemaGenerator extends GeneratorForAnnotation<Injectable> {
   @override
   String toString() => "";
 
-  bool isProvider(Element element) =>
-      TypeChecker.fromRuntime(Provide).firstAnnotationOfExact(element) != null;
+  bool isProvider(Element element) => TypeChecker.fromRuntime(Provide).firstAnnotationOfExact(element) != null;
 
-  bool isSingleton(Element element) =>
-      TypeChecker.fromRuntime(Singleton).firstAnnotationOfExact(element) !=
-      null;
+  bool isSingleton(Element element) => TypeChecker.fromRuntime(Singleton).firstAnnotationOfExact(element) != null;
 }

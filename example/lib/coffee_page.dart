@@ -1,15 +1,16 @@
+
+import 'package:gate_example/coffee_service.dart';
+import 'package:gate_example/gate/gate_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:gate/gate.dart';
-import 'coffee_service.dart';
 
-import 'package:gate_example/gate/gate_provider.dart';
 part 'coffee_page.gate_inject.g.part';
 
 @Inject(children: [
   InjectedChild("S1", factoryName: "build"),
   InjectedChild("S2B", factoryName: "build"),
-  InjectedChild("CoffeeService",
-      factoryName: "simple", attrName: "coffeeService"),
+  InjectedChild("CoffeeService", factoryName: "simple", attrName: "coffeeService"),
 ])
 class CoffeePage extends StatelessWidget {
   const CoffeePage({Key? key}) : super(key: key);
@@ -21,3 +22,5 @@ class CoffeePage extends StatelessWidget {
     return Container();
   }
 }
+
+
