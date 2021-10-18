@@ -1,0 +1,19 @@
+// **************************************************************************
+// GateInjectGenerator
+// **************************************************************************
+
+part of 'user_service.dart';
+
+extension UserServiceInjection on UserService {
+  AuthenticationService get authenticationService =>
+      AppProvider.instance.getAuthenticationServiceBuild();
+
+  BookRepository get bookRepository =>
+      AppProvider.instance.getBookRepositoryBuild();
+
+  UserRepository get userRepository =>
+      AppProvider.instance.getUserRepositoryBuild();
+
+  LibraryRepository get libraryRepository =>
+      AppProvider.instance.getLibraryRepositoryBuild();
+}

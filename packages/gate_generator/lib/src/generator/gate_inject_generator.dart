@@ -20,7 +20,12 @@ class GateInjectGenerator extends GeneratorForAnnotation<Inject> {
       await GateGraphReader.instance.build(buildStep);
     }
     graph = gateReader.graph!;
-    return super.generate(library, buildStep);
+    try {
+      return super.generate(library, buildStep);
+    } catch (e, d) {
+      log.severe(e, d);
+    }
+    return "";
   }
 
   @override

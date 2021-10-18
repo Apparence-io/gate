@@ -1,5 +1,9 @@
-import 'package:gate_example/coffee_service.dart' as _i1;
-import 'package:gate_example/todo.dart' as _i2;
+import 'package:gate_example/database/repositories/book_repository.dart' as _i1;
+import 'package:gate_example/database/repositories/user_repository.dart' as _i2;
+import 'package:gate_example/database/repositories/library_repository.dart'
+    as _i3;
+import 'package:gate_example/services/auth_service.dart' as _i4;
+import 'package:gate_example/services/user_service.dart' as _i5;
 
 // ********************************
 // Gate AppProvider generated file
@@ -10,48 +14,67 @@ class AppProvider {
 
   static final AppProvider instance = AppProvider._();
 
-// CoffeeService singleton
-  late final _i1.CoffeeService _coffeeServiceSimple = _i1.CoffeeService.simple(
-    getS1Build(),
-  );
+// BookRepository singleton
+  late final _i1.BookRepository _bookRepositoryBuild =
+      _i1.BookRepository.build();
 
-// CoffeeService mock
-  _i1.CoffeeService? _coffeeServiceSimpleMock;
+// BookRepository mock
+  _i1.BookRepository? _bookRepositoryBuildMock;
 
-// S1 mock
-  _i1.S1? _s1BuildMock;
+// UserRepository singleton
+  late final _i2.UserRepository _userRepositoryBuild =
+      _i2.UserRepository.build();
 
-// S2B singleton
-  late final _i1.S2B _s2BBuild = _i1.S2B.build(
-    getCoffeeServiceSimple(),
-  );
+// UserRepository mock
+  _i2.UserRepository? _userRepositoryBuildMock;
 
-// S2B mock
-  _i1.S2B? _s2BBuildMock;
+// LibraryRepository singleton
+  late final _i3.LibraryRepository _libraryRepositoryBuild =
+      _i3.LibraryRepository.build();
 
-// TodoService mock
-  _i2.TodoService? _todoServiceBeanMock;
+// LibraryRepository mock
+  _i3.LibraryRepository? _libraryRepositoryBuildMock;
 
-// injected CoffeeService
-  _i1.CoffeeService getCoffeeServiceSimple() =>
-      _coffeeServiceSimpleMock ?? _coffeeServiceSimple;
-// Set CoffeeService mock
-  void setCoffeeServiceSimpleMock(_i1.CoffeeService? mock) =>
-      _coffeeServiceSimpleMock = mock;
-// injected S1
-  _i1.S1 getS1Build() => _s1BuildMock ?? _i1.S1.build();
-// Set S1 mock
-  void setS1BuildMock(_i1.S1? mock) => _s1BuildMock = mock;
-// injected S2B
-  _i1.S2B getS2BBuild() => _s2BBuildMock ?? _s2BBuild;
-// Set S2B mock
-  void setS2BBuildMock(_i1.S2B? mock) => _s2BBuildMock = mock;
-// injected TodoService
-  _i2.TodoService getTodoServiceBean() =>
-      _todoServiceBeanMock ?? _i2.TodoService.bean();
-// Set TodoService mock
-  void setTodoServiceBeanMock(_i2.TodoService? mock) =>
-      _todoServiceBeanMock = mock;
+// AuthenticationService singleton
+  late final _i4.AuthenticationService _authenticationServiceBuild =
+      _i4.AuthenticationService.build();
+
+// AuthenticationService mock
+  _i4.AuthenticationService? _authenticationServiceBuildMock;
+
+// UserService mock
+  _i5.UserService? _userServiceBuildMock;
+
+// injected BookRepository
+  _i1.BookRepository getBookRepositoryBuild() =>
+      _bookRepositoryBuildMock ?? _bookRepositoryBuild;
+// Set BookRepository mock
+  void setBookRepositoryBuildMock(_i1.BookRepository? mock) =>
+      _bookRepositoryBuildMock = mock;
+// injected UserRepository
+  _i2.UserRepository getUserRepositoryBuild() =>
+      _userRepositoryBuildMock ?? _userRepositoryBuild;
+// Set UserRepository mock
+  void setUserRepositoryBuildMock(_i2.UserRepository? mock) =>
+      _userRepositoryBuildMock = mock;
+// injected LibraryRepository
+  _i3.LibraryRepository getLibraryRepositoryBuild() =>
+      _libraryRepositoryBuildMock ?? _libraryRepositoryBuild;
+// Set LibraryRepository mock
+  void setLibraryRepositoryBuildMock(_i3.LibraryRepository? mock) =>
+      _libraryRepositoryBuildMock = mock;
+// injected AuthenticationService
+  _i4.AuthenticationService getAuthenticationServiceBuild() =>
+      _authenticationServiceBuildMock ?? _authenticationServiceBuild;
+// Set AuthenticationService mock
+  void setAuthenticationServiceBuildMock(_i4.AuthenticationService? mock) =>
+      _authenticationServiceBuildMock = mock;
+// injected UserService
+  _i5.UserService getUserServiceBuild() =>
+      _userServiceBuildMock ?? _i5.UserService.build();
+// Set UserService mock
+  void setUserServiceBuildMock(_i5.UserService? mock) =>
+      _userServiceBuildMock = mock;
 }
 
 final AppProvider appProvider = AppProvider.instance;

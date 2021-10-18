@@ -1,0 +1,9 @@
+// **************************************************************************
+// GateInjectGenerator
+// **************************************************************************
+
+part of 'home_page.dart';
+
+extension MyHomePageInjection on MyHomePage {
+  UserService get userService => AppProvider.instance.getUserServiceBuild();
+}
