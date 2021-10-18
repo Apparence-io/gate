@@ -11,21 +11,12 @@ class GateImportsGenerator {
 
   GateImportsGenerator(this.graph);
 
-  generate(BuildStep buildStep, Set<ClassSchema> injectablesToAdd) async {
+  generate(BuildStep buildStep) async {
     var fileContent = await buildStep.readAsString(buildStep.inputId);
     var result = parseString(content: fileContent, throwIfDiagnostics: false);
     var rootUnit = result.unit.root;
 
-    var missingImports = _parseImports(rootUnit, injectablesToAdd);
     var resultFile = StringBuffer();
-    Set<String> imports = {};
-    for (var missingImport in missingImports) {
-      final importString = "import 'package:${missingImport.path}';";
-      if (!imports.contains(importString)) {
-        resultFile.writeln(importString);
-      }
-      imports.add(importString);
-    }
     if (!_hasImport(rootUnit, _getGateProviderImport(buildStep))) {
       resultFile.writeln(_getGateProviderImport(buildStep));
     }
@@ -38,21 +29,6 @@ class GateImportsGenerator {
     resultFile.writeln(fileContent);
     var file = File(buildStep.inputId.path);
     await file.writeAsString(resultFile.toString());
-  }
-
-  Set<ClassSchema> _parseImports(AstNode rootUnit, Set<ClassSchema> injectablesToAdd) {
-    List<ClassSchema> importedList = [];
-    for (final node in rootUnit.childEntities) {
-      if (node is ImportDirective) {
-        var injectableAlreadyImported = injectablesToAdd.where((element) {
-          return node.toString().contains(element.path);
-        });
-        if (injectableAlreadyImported.isNotEmpty) {
-          importedList.addAll(injectableAlreadyImported);
-        }
-      }
-    }
-    return injectablesToAdd.difference(importedList.toSet());
   }
 
   bool _hasImport(AstNode rootUnit, String importString) {

@@ -11,10 +11,10 @@ part 'user_service.gate_inject.g.part';
 
 @Injectable()
 @Inject(children: [
-  InjectedChild('AuthenticationService', factoryName: 'build'),
-  InjectedChild('BookRepository', factoryName: 'build'),
-  InjectedChild('UserRepository', factoryName: 'build'),
-  // InjectedChild('LibraryRepository', factoryName: 'build'),
+  InjectedChild(AuthenticationService, factoryName: 'build'),
+  InjectedChild(BookRepository, factoryName: 'build'),
+  InjectedChild(UserRepository, factoryName: 'build'),
+  InjectedChild(LibraryRepository, factoryName: 'build'),
 ])
 class UserService {
   UserService._();
@@ -24,7 +24,16 @@ class UserService {
 
   UserEntity getMe() => userRepository.getFromId(authenticationService.getUserId());
 
-  // LibraryEntity getLibrary() {
-  //   return libraryRepository.getFromId("123134");
-  // }
+  LibraryEntity getLibrary() {
+    return libraryRepository.getFromId("123134");
+  }
 }
+
+
+
+
+
+
+
+
+

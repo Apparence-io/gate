@@ -6,7 +6,7 @@ import 'package:gate/gate.dart';
 part 'home_page.gate_inject.g.part';
 
 @Inject(children: [
-  InjectedChild('UserService', factoryName: 'build'),
+  InjectedChild(UserService, factoryName: 'build'),
 ])
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -28,4 +28,12 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
 
