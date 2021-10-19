@@ -72,8 +72,8 @@ import 'package:gate_example/gate/coffee_service.dart';
 part 'coffee_page.gate_inject.g.part';
 
 @Inject(children: [
-  InjectedChild("S1", factoryName: "build"),
-  InjectedChild("CoffeeService", factoryName: "simple", attrName: "coffeeService"),
+  InjectedChild(S1, factoryName: "build"),
+  InjectedChild(CoffeeService, factoryName: "simple", attrName: "coffeeService"),
 ])
 class CoffeePage extends StatelessWidget {
   const CoffeePage({Key? key}) : super(key: key);
@@ -86,10 +86,9 @@ class CoffeePage extends StatelessWidget {
 }
 ```
 You can inject as many dependency as you want into your class as long as their are Injectable. 
-> don't forget to add ```part 'coffee_page.gate_inject.g.part';``` 
-> this will be genererated on next step
+> ```part 'coffee_page.gate_inject.g.part';```  will be be added to your file
+> this file will be genererated on next step
 > don't forget to import "gate_provider.dart" that is generated next
-> import your service (coffee_service.dart too)
 
 
 ### 3 - generate code
@@ -127,7 +126,7 @@ Once build runner is done, you can run your flutter app and use all injected cla
 
 ## Mock an injected dependency for testing
 To remplace your service by mocks, you have to set them, before testing.
-
+Gate will generate all methods for you. 
 
 First, declare your mocked services with your prefered libraries.
 
