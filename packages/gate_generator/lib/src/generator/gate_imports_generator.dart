@@ -11,7 +11,7 @@ class GateImportsGenerator {
 
   GateImportsGenerator(this.graph);
 
-  generate(BuildStep buildStep) async {
+  Future generate(BuildStep buildStep) async {
     var fileContent = await buildStep.readAsString(buildStep.inputId);
     var result = parseString(content: fileContent, throwIfDiagnostics: false);
     var rootUnit = result.unit.root;
