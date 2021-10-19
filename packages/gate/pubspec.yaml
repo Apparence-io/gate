@@ -1,6 +1,6 @@
 name: gate
 description: Annotations for gate_generator
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/Apparence-io/gate
 
 environment:
