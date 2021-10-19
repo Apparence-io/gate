@@ -33,7 +33,7 @@ class Inject {
 }
 
 class InjectedChild {
-  final String type;
+  final Type type;
   final String? factoryName, attrName;
 
   const InjectedChild(this.type, {this.factoryName, this.attrName});

@@ -4,6 +4,7 @@ import 'package:build/build.dart';
 import 'package:gate_generator/src/factories/gate_provider_factory.dart';
 import 'package:gate_generator/src/generator/exceptions/gate_provider_exceptions.dart';
 import 'package:gate_generator/src/models/class_model.dart';
+import 'package:gate_generator/src/models/injected_model.dart';
 
 class GateProviderGraph {
   final List<ClassSchema> injectables;
@@ -42,8 +43,11 @@ class GateProviderGraph {
   }
 
   /// returns a list of [ClassSchema] from an injectable dependency list
-  _getDependencyTree(ClassSchema injectable,
-      Set<ClassSchema> visitedDependencies, StringBuffer treeLog) {
+  _getDependencyTree(
+    ClassSchema injectable,
+    Set<ClassSchema> visitedDependencies,
+    StringBuffer treeLog,
+  ) {
     if (injectable.dependencies.isEmpty) {
       return;
     }
@@ -66,4 +70,7 @@ class GateProviderGraph {
   }
 
   GateProviderFactory get appProviderFactory => GateProviderFactory(this);
+
+  ClassSchema getInjected(Injected injected) => injectables
+      .firstWhere((element) => element.className == injected.className);
 }

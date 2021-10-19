@@ -17,5 +17,7 @@ Builder gateBuilder(BuilderOptions options) => GateGraphBuilder(
       buildExtension: 'gate/gate_provider.dart',
     );
 
-Builder gateInjectBuilder(BuilderOptions options) =>
-    SharedPartBuilder([GateInjectGenerator()], 'gate_inject');
+Builder gateInjectBuilder(BuilderOptions options) => SharedPartBuilder(
+      [GateInjectGenerator(GateGraphReader.instance)],
+      'gate_inject',
+    );

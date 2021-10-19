@@ -1,9 +1,0 @@
-[
-  {
-    "path": "gate_example/todo.dart",
-    "className": "TodoService",
-    "constructor": "bean",
-    "injectionType": "InjectionType.DYNAMIC",
-    "dependencies": []
-  }
-]

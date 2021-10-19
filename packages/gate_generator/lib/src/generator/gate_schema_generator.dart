@@ -36,7 +36,8 @@ class GateSchemaGenerator extends GeneratorForAnnotation<Injectable> {
         continue;
       }
       var absPath = buildStep.inputId.path.replaceFirst('lib/', '');
-      String path = "${buildStep.inputId.package}/$absPath";
+      var packageName = buildStep.inputId.package;
+      String path = "$packageName/$absPath";
       if (isProvider(el)) {
         classList.add(ClassSchema.builder(element, el, path));
       } else if (isSingleton(el)) {

@@ -6,52 +6,50 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gate_example/coffee_service.dart';
+import 'package:gate_example/database/entities/user_entity.dart';
+import 'package:gate_example/database/repositories/book_repository.dart';
+import 'package:gate_example/database/repositories/user_repository.dart';
 import 'package:gate_example/gate/gate_provider.dart';
-import 'package:gate_example/todo.dart';
+import 'package:gate_example/main.dart';
+import 'package:gate_example/services/auth_service.dart';
 import 'package:mocktail/mocktail.dart';
 
-class CoffeeServiceMock extends Mock implements CoffeeService {}
+class UserRepositoryMock extends Mock implements UserRepository {}
 
-class S1ServiceMock extends Mock implements S1 {}
+class BookRepositoryMock extends Mock implements BookRepository {}
 
-class S2BServiceMock extends Mock implements S2B {}
-
-class TodoServiceMock extends Mock implements TodoService {}
+class AuthenticationServiceMock extends Mock implements AuthenticationService {}
 
 void main() {
   // Initialize mocks
-  final CoffeeService coffeeServiceMock = CoffeeServiceMock();
-  final S1 s1ServiceMock = S1ServiceMock();
-  final S2B s2BServiceMock = S2BServiceMock();
-  final TodoService todoServiceMock = TodoServiceMock();
+  final AuthenticationService authServiceMock = AuthenticationServiceMock();
+  final UserRepository userRepository = UserRepositoryMock();
+  final BookRepository bookRepository = BookRepositoryMock();
 
   group('Mock injection group', () {
     setUp(() {
-      when(() => coffeeServiceMock.getMenu()).thenReturn("Best menu");
+      when(() => authServiceMock.getUserId()).thenReturn("31321354");
+      when(() => userRepository.getFromId(any()))
+          .thenReturn(UserEntity(name: "Robert"));
       // Set injected services with mocks
-      appProvider.setCoffeeServiceSimpleMock(coffeeServiceMock);
-      appProvider.setS1BuildMock(s1ServiceMock);
-      appProvider.setS2BBuildMock(s2BServiceMock);
-      appProvider.setTodoServiceBeanMock(todoServiceMock);
+      appProvider.setAuthenticationServiceBuildMock(authServiceMock);
+      appProvider.setUserRepositoryBuildMock(userRepository);
+      appProvider.setBookRepositoryBuildMock(bookRepository);
     });
 
     tearDownAll(() {
       // Remove mocks from appProvider (real ones will be used)
-      appProvider.setCoffeeServiceSimpleMock(null);
-      appProvider.setS1BuildMock(null);
-      appProvider.setS2BBuildMock(null);
-      appProvider.setTodoServiceBeanMock(null);
+      appProvider.setAuthenticationServiceBuildMock(null);
+      appProvider.setUserRepositoryBuildMock(null);
+      appProvider.setBookRepositoryBuildMock(null);
     });
 
-    test('Test mocks injection', () async {
-      expect(appProvider.getCoffeeServiceSimple().getMenu(),
-          equals('Best menu')); // Mocked returned value
-
-      appProvider.setCoffeeServiceSimpleMock(null);
-
-      expect(appProvider.getCoffeeServiceSimple().getMenu(),
-          equals('No menu')); // True value (not mocked)
+    testWidgets('Test mocks injection', (WidgetTester tester) async {
+      expect(appProvider.getUserRepositoryBuild().getFromId("dsd").name,
+          equals('Robert')); // Mocked returned value
+      await tester.pumpWidget(const MyApp());
+      await tester.pumpAndSettle();
+      expect(find.text("Robert"), findsOneWidget);
     });
   });
 }
