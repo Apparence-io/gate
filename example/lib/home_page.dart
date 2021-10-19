@@ -21,19 +21,11 @@ class MyHomePage extends StatelessWidget {
           children: [
             const SizedBox(height: 40),
             const Text("User", style: TextStyle(fontSize: 21)),
-            Text(userService.getMe().name, style: const TextStyle(fontSize: 14)),
+            Text(userService.getMe().name,
+                style: const TextStyle(fontSize: 14)),
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-

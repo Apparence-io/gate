@@ -33,7 +33,8 @@ class GateInjectGenerator extends GeneratorForAnnotation<Inject> {
   }
 
   @override
-  generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) async {
+  generateForAnnotatedElement(
+      Element element, ConstantReader annotation, BuildStep buildStep) async {
     var res = StringBuffer();
     var children = annotation.peek("children")!.listValue;
     // create imports in userFile automatically

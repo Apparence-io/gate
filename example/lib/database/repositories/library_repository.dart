@@ -8,5 +8,6 @@ class LibraryRepository {
   @Singleton()
   factory LibraryRepository.build() => LibraryRepository._();
 
-  LibraryEntity getFromId(String id) => LibraryEntity(id: id, name: "myLibrary");
+  LibraryEntity getFromId(String id) =>
+      LibraryEntity(id: id, name: "myLibrary");
 }

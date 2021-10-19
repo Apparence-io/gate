@@ -26,5 +26,6 @@ class Injected {
     return "get$className";
   }
 
-  String get getter => "  $className get $attribute => AppProvider.instance.$method();";
+  String get getter =>
+      "  $className get $attribute => AppProvider.instance.$method();";
 }

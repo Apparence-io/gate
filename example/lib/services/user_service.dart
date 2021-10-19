@@ -22,18 +22,10 @@ class UserService {
   @Provide()
   factory UserService.build() => UserService._();
 
-  UserEntity getMe() => userRepository.getFromId(authenticationService.getUserId());
+  UserEntity getMe() =>
+      userRepository.getFromId(authenticationService.getUserId());
 
   LibraryEntity getLibrary() {
     return libraryRepository.getFromId("123134");
   }
 }
-
-
-
-
-
-
-
-
-

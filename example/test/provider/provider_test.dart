@@ -29,7 +29,8 @@ void main() {
   group('Mock injection group', () {
     setUp(() {
       when(() => authServiceMock.getUserId()).thenReturn("31321354");
-      when(() => userRepository.getFromId(any())).thenReturn(UserEntity(name: "Robert"));
+      when(() => userRepository.getFromId(any()))
+          .thenReturn(UserEntity(name: "Robert"));
       // Set injected services with mocks
       appProvider.setAuthenticationServiceBuildMock(authServiceMock);
       appProvider.setUserRepositoryBuildMock(userRepository);
@@ -44,7 +45,8 @@ void main() {
     });
 
     testWidgets('Test mocks injection', (WidgetTester tester) async {
-      expect(appProvider.getUserRepositoryBuild().getFromId("dsd").name, equals('Robert')); // Mocked returned value
+      expect(appProvider.getUserRepositoryBuild().getFromId("dsd").name,
+          equals('Robert')); // Mocked returned value
       await tester.pumpWidget(const MyApp());
       await tester.pumpAndSettle();
       expect(find.text("Robert"), findsOneWidget);

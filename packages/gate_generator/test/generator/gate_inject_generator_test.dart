@@ -65,7 +65,8 @@ void main() {
   ''', () async {
     final graphReader = GateGraphReader(folder: 'data/case1');
     final gateInjectGenerator = GateInjectGenerator(graphReader);
-    var inputAssetId = AssetId('gate_generator', 'test/data/case_0/injected.dart');
+    var inputAssetId =
+        AssetId('gate_generator', 'test/data/case_0/injected.dart');
     List<AssetId> assets = [
       AssetId('gate_generator', 'test/data/case_0/s1.gate_schema.json'),
       AssetId('gate_generator', 'test/data/case_0/s2.gate_schema.json'),
@@ -74,16 +75,20 @@ void main() {
     // when(() => buildStepMock.inputId.package).thenReturn("mypackage");
     // when(() => buildStepMock.inputId.uri).thenReturn(Uri.parse("test/data/case_0/s1.dart"));
     when(() => buildStepMock.inputId).thenReturn(inputAssetId);
-    when(() => buildStepMock.findAssets(any())).thenAnswer((_) => Stream.fromIterable(assets));
-    when(() => buildStepMock.readAsString(inputAssetId)).thenAnswer((_) => File(inputAssetId.path).readAsString());
+    when(() => buildStepMock.findAssets(any()))
+        .thenAnswer((_) => Stream.fromIterable(assets));
+    when(() => buildStepMock.readAsString(inputAssetId))
+        .thenAnswer((_) => File(inputAssetId.path).readAsString());
     for (var asset in assets) {
-      when(() => buildStepMock.readAsString(asset)).thenAnswer((_) => File(asset.path).readAsString());
+      when(() => buildStepMock.readAsString(asset))
+          .thenAnswer((_) => File(asset.path).readAsString());
     }
     var library = await resolveSources({
       'gate_generator|test/data/case_0/injected.dart': useAssetReader,
     }, (resolver) => resolver.findLibraryByName(''));
 
-    var generatedString = await gateInjectGenerator.generate(LibraryReader(library!), buildStepMock);
+    var generatedString = await gateInjectGenerator.generate(
+        LibraryReader(library!), buildStepMock);
     expect(generatedString, '''part of 'injected.dart';
 
 extension UserServiceInjection on UserService {

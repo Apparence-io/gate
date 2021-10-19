@@ -23,7 +23,8 @@ class GateImportsGenerator {
     if (!_hasPartDirective(rootUnit, _getPart(buildStep))) {
       int fileEndImportIndex = _getEndImportIndex(rootUnit);
       var firstPart = fileContent.substring(0, fileEndImportIndex + 1);
-      var secondPart = fileContent.substring(fileEndImportIndex + 1, fileContent.length);
+      var secondPart =
+          fileContent.substring(fileEndImportIndex + 1, fileContent.length);
       fileContent = '$firstPart\n${_getPart(buildStep)}\n$secondPart';
     }
     resultFile.writeln(fileContent);

@@ -57,16 +57,20 @@ class GateProviderGraph {
         (element) => element.className == dependency.type,
         orElse: () => throw 'injectableDependency cannot be found',
       );
-      if (visitedDependencies.contains(injectableDependency) || injectable == injectableDependency) {
-        throw CyclicDepencyException(" on ${injectableDependency.className} as dependency");
+      if (visitedDependencies.contains(injectableDependency) ||
+          injectable == injectableDependency) {
+        throw CyclicDepencyException(
+            " on ${injectableDependency.className} as dependency");
       }
       visitedDependencies.add(injectableDependency);
       treeLog.writeln("   ${injectableDependency.className}");
-      _getDependencyTree(injectableDependency, HashSet.from(visitedDependencies), treeLog);
+      _getDependencyTree(
+          injectableDependency, HashSet.from(visitedDependencies), treeLog);
     }
   }
 
   GateProviderFactory get appProviderFactory => GateProviderFactory(this);
 
-  ClassSchema getInjected(Injected injected) => injectables.firstWhere((element) => element.className == injected.className);
+  ClassSchema getInjected(Injected injected) => injectables
+      .firstWhere((element) => element.className == injected.className);
 }
