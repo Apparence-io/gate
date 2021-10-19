@@ -2,7 +2,6 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:build/build.dart';
-import 'package:gate_generator/src/models/class_model.dart';
 import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:universal_io/io.dart';
 
