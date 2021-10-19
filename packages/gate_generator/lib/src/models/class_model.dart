@@ -1,6 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:gate_generator/src/factories/abstract_provider_factory.dart';
 import 'package:gate_generator/src/factories/class_provider_factory.dart';

@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:gate/gate.dart';
 import 'package:gate_generator/src/generator/graph_reader.dart';
-import 'package:gate_generator/src/models/class_model.dart';
 import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:gate_generator/src/models/injected_model.dart';
 import 'package:source_gen/source_gen.dart';

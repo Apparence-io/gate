@@ -2,31 +2,28 @@ import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
 import 'package:gate_generator/src/generator/gate_inject_generator.dart';
 import 'package:gate_generator/src/generator/graph_reader.dart';
-import 'package:gate_generator/src/models/gate_provider_graph.dart';
 import 'package:glob/glob.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:test/test.dart';
 import 'package:universal_io/io.dart';
 
-import '../utils/string_analyser_utils.dart';
-
 // ignore: subtype_of_sealed_class
 class BuildStepMock extends Mock implements BuildStep {}
 
 void main() {
-  late PackageAssetReader reader;
   final buildStepMock = BuildStepMock();
-  final inputAssetId0 = AssetId('build_test', 'lib/build_test.dart');
+  // late PackageAssetReader reader;
+  // final inputAssetId0 = AssetId('build_test', 'lib/build_test.dart');
 
   setUpAll(() {
     registerFallbackValue(Glob('lib/**'));
   });
 
   setUp(() async {
-    reader = await PackageAssetReader.currentIsolate(
-      rootPackage: 'build_test',
-    );
+    // reader = await PackageAssetReader.currentIsolate(
+    //   rootPackage: 'build_test',
+    // );
   });
 
   tearDown(() {
