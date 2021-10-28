@@ -1,5 +1,5 @@
 name: gate_generator
-description: Injection generator for your flutter/dart applications
+description: Dependency Injection generator for your flutter/dart applications. This uses annotations and build_runner.
 version: 0.0.3+1
 repository: https://github.com/Apparence-io/gate
 
