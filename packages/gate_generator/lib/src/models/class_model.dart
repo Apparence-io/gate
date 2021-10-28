@@ -52,7 +52,7 @@ class ClassSchema {
       ClassSchema(
         path: path,
         className: classElement.displayName,
-        constructor: element.displayName,
+        constructor: element.name,
         dependencies: element.parameters
             .map((param) => Dependency.fromParameter(param))
             .toList(),
