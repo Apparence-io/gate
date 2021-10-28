@@ -1,7 +1,5 @@
 import 'package:gate/gate.dart';
 
-import 's1.dart';
-
 @Injectable()
 class S3 {
   S3._();
