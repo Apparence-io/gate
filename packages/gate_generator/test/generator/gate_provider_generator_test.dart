@@ -186,4 +186,29 @@ void main() {
     expect(() async => await gateCodeGenerator.generate(buildStepMock),
         throwsA(TypeMatcher<CyclicDepencyException>()));
   });
+
+  test(''' 
+  classes S1, S2, S3 are dynamic Injectables,
+  S1 -> S2, S3 
+  S2 -> S3
+  S3 -> .  
+  => should not throw a cyclic dependency
+  ''', () async {
+    final graphReader = GateGraphReader(folder: 'data/case1');
+    final gateCodeGenerator = GateCodeGenerator(graphReader);
+    List<AssetId> assets = [
+      AssetId('gate_generator', 'test/data/case_4/s1.gate_schema.json'),
+      AssetId('gate_generator', 'test/data/case_4/s2.gate_schema.json'),
+      AssetId('gate_generator', 'test/data/case_4/s3.gate_schema.json'),
+    ];
+    when(() => buildStepMock.findAssets(any()))
+        .thenAnswer((_) => Stream.fromIterable(assets));
+    for (var asset in assets) {
+      when(() => buildStepMock.readAsString(asset))
+          .thenAnswer((_) => File(asset.path).readAsString());
+    }
+    var generatedString = await gateCodeGenerator.generate(buildStepMock);
+    var analyzedClass = StringClassTestUtils.parse(generatedString);
+    expect(analyzedClass.attrs.length, 7);
+  });
 }

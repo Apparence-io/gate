@@ -14,7 +14,7 @@ class GateProviderGraph {
   /// throws if dependency is not injected
   checkDependency(Dependency dependency) {
     if (!injectables.any((e) => e.className == dependency.type)) {
-      throw "${dependency.type} Dependency cannot be created. All your injection's dependencies must be injected.";
+      throw '''${dependency.type} Dependency cannot be created. All your injection's dependencies must be injected.''';
     }
   }
 
@@ -34,7 +34,7 @@ class GateProviderGraph {
   checkCyclicDependency() {
     final treeLog = StringBuffer();
     for (var injectable in injectables) {
-      _getDependencyTree(injectable, {}, treeLog);
+      _getDependencyTree(injectable, injectable, {injectable}, treeLog);
     }
     log.info("---------------------");
     log.info(" Dependency tree     ");
@@ -44,6 +44,7 @@ class GateProviderGraph {
 
   /// returns a list of [ClassSchema] from an injectable dependency list
   _getDependencyTree(
+    ClassSchema rootInjectable,
     ClassSchema injectable,
     Set<ClassSchema> visitedDependencies,
     StringBuffer treeLog,
@@ -57,17 +58,26 @@ class GateProviderGraph {
         (element) => element.className == dependency.type,
         orElse: () => throw 'injectableDependency cannot be found',
       );
-      if (visitedDependencies.contains(injectableDependency) ||
-          injectable == injectableDependency) {
+      treeLog.writeln("   ${injectableDependency.className}");
+      if (injectable == injectableDependency ||
+          injectableDependency == rootInjectable) {
         throw CyclicDepencyException(
-            " on ${injectableDependency.className} as dependency");
+            " on ${injectableDependency.className} as dependency \n $treeLog");
       }
       visitedDependencies.add(injectableDependency);
-      treeLog.writeln("   ${injectableDependency.className}");
       _getDependencyTree(
-          injectableDependency, HashSet.from(visitedDependencies), treeLog);
+        rootInjectable,
+        injectableDependency,
+        HashSet.from(visitedDependencies),
+        treeLog,
+      );
     }
   }
+
+  // userService -> userRepository, authService -> userRepository, authProvider
+  // authService -> userRepository, authProvider
+  // userRepository
+  // authProvider
 
   GateProviderFactory get appProviderFactory => GateProviderFactory(this);
 
