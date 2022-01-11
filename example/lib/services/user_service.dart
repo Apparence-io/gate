@@ -1,3 +1,4 @@
+import 'package:gate/gate.dart';
 import 'package:gate_example/database/repositories/library_repository.dart';
 import 'package:gate_example/database/entities/library_entity.dart';
 import 'package:gate_example/database/entities/user_entity.dart';
@@ -5,7 +6,6 @@ import 'package:gate_example/services/auth_service.dart';
 import 'package:gate_example/database/repositories/book_repository.dart';
 import 'package:gate_example/database/repositories/user_repository.dart';
 import 'package:gate_example/gate/gate_provider.dart';
-import 'package:gate/gate.dart';
 
 part 'user_service.gate_inject.g.part';
 
@@ -29,6 +29,3 @@ class UserService {
     return libraryRepository.getFromId("123134");
   }
 }
-
-
-

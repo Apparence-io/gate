@@ -26,7 +26,7 @@ class GateImportsGenerator {
           fileContent.substring(fileEndImportIndex + 1, fileContent.length);
       fileContent = '$firstPart\n${_getPart(buildStep)}\n$secondPart';
     }
-    resultFile.writeln(fileContent);
+    resultFile.write(fileContent);
     var file = File(buildStep.inputId.path);
     await file.writeAsString(resultFile.toString());
   }
