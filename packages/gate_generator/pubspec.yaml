@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.14.2 <3.0.0"
 
 dependencies:
-  analyzer: 2.7.0
+  analyzer: ^2.7.0
   build: ^2.1.0
   code_builder: ^4.1.0
   dart_style: ^2.2.0
