@@ -1,3 +1,6 @@
+## 0.0.3+3
+- fixed an empty line added on every file containing a generated import
+
 ## 0.0.3
 - Injected child now use DartType
 - Add "part of myfile.part" automatically into your source file
