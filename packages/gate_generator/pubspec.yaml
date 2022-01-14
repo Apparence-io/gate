@@ -1,21 +1,23 @@
 name: gate_generator
 description: Dependency Injection generator for your flutter/dart applications.
   This uses annotations and build_runner.
-version: 0.0.3+3
+version: 0.0.3+6
 repository: https://github.com/Apparence-io/gate
 
 environment:
-  sdk: ">=2.14.2 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  analyzer: ^3.0.0
+  analyzer: ^2.8.0
   build: ^2.1.0
   code_builder: ^4.1.0
   dart_style: ^2.2.1
   gate: ^0.0.2
+  # gate: 
+  #   path: ../gate 
   glob: ^2.0.2
   meta: ^1.7.0
-  path: ^1.8.1
+  path: ^1.8.0
   quiver: ^3.0.1+1
   source_gen: ^1.2.1
   universal_io: ^2.0.4
@@ -26,4 +28,4 @@ dev_dependencies:
   lints: ^1.0.1
   mocktail: ^0.2.0
   source_gen_test: ^1.0.2
-  test: ^1.20.1
+  test: ^1.16.0
