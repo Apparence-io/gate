@@ -1,4 +1,5 @@
-# Gate - Dart/Flutter Dependency injection generator
+# Gate
+**Dart/Flutter Dependency injection generator**
  
 <p align="center">
 <img src="https://github.com/Apparence-io/gate/raw/master/packages/gate_generator/doc/images/cover.png" alt="flutter anchored onboarding screen" />
