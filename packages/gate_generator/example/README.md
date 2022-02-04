@@ -1,3 +1,4 @@
+```dart
 import 'package:gate/gate.dart';
 
 @Injectable()
@@ -33,3 +34,4 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+```
