@@ -1,3 +1,4 @@
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gate_example/database/repositories/book_repository.dart' as _i1;
 import 'package:gate_example/database/repositories/user_repository.dart' as _i2;
 import 'package:gate_example/database/repositories/library_repository.dart'
@@ -15,28 +16,26 @@ class AppProvider {
   static final AppProvider instance = AppProvider._();
 
 // BookRepository singleton
-  late final _i1.BookRepository _bookRepositoryBuild =
-      _i1.BookRepository.build();
+  final _i1.BookRepository _bookRepositoryBuild = _i1.BookRepository.build();
 
 // BookRepository mock
   _i1.BookRepository? _bookRepositoryBuildMock;
 
 // UserRepository singleton
-  late final _i2.UserRepository _userRepositoryBuild =
-      _i2.UserRepository.build();
+  final _i2.UserRepository _userRepositoryBuild = _i2.UserRepository.build();
 
 // UserRepository mock
   _i2.UserRepository? _userRepositoryBuildMock;
 
 // LibraryRepository singleton
-  late final _i3.LibraryRepository _libraryRepositoryBuild =
+  final _i3.LibraryRepository _libraryRepositoryBuild =
       _i3.LibraryRepository.build();
 
 // LibraryRepository mock
   _i3.LibraryRepository? _libraryRepositoryBuildMock;
 
 // AuthenticationService singleton
-  late final _i4.AuthenticationService _authenticationServiceBuild =
+  final _i4.AuthenticationService _authenticationServiceBuild =
       _i4.AuthenticationService.build();
 
 // AuthenticationService mock
