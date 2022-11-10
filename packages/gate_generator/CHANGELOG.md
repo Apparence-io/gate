@@ -1,3 +1,9 @@
+## 0.0.3+7
+- upgrade dependencies
+
+## 0.0.3+4
+- revert path dependency to 1.8.0 as flutter_test is on it.
+
 ## 0.0.3+3
 - fixed an empty line added on every file containing a generated import
 
