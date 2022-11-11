@@ -41,7 +41,7 @@ class StringClassTestUtils {
       // print("node : ${node.runtimeType}");
       if (node is MethodDeclaration) {
         analyzedClass.getters.add(AnalyzedMethod(
-          node.name.name,
+          node.name.toString(),
           node.returnType.toString(),
         ));
         _parseNode(node, analyzedClass);
@@ -50,7 +50,7 @@ class StringClassTestUtils {
             node.fields.childEntities.whereType<VariableDeclaration>();
         if (attrType.isNotEmpty) {
           analyzedClass.attrs.add(AnalyzedAttr(
-            attrType.first.name.name,
+            attrType.first.name.toString(),
             node.fields.childEntities
                 .firstWhere((element) => element is NamedType)
                 .toString(),

@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.14.2 <3.0.0"
+  sdk: ">=2.18.2 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -27,23 +27,20 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  build_runner: ^2.1.2
-  cupertino_icons: ^1.0.2
+  build_runner: ^2.3.2
+  cupertino_icons: ^1.0.5
   flutter:
     sdk: flutter
-  gate: ^0.0.2
-  # gate: 
-    # path: ../packages/gate
-  mocktail: ^0.1.4
+  gate:
+    path: ../packages/gate
 
 dev_dependencies:
-  gate_generator: ^0.0.3+6
-  # gate_generator: 
-  #   path:
-  #     ../packages/gate_generator
-  flutter_lints: ^1.0.0
+  gate_generator: 
+    path: ../packages/gate_generator
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
+  mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

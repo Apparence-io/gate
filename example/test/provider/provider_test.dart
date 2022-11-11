@@ -12,29 +12,33 @@ import 'package:gate_example/database/repositories/user_repository.dart';
 import 'package:gate_example/gate/gate_provider.dart';
 import 'package:gate_example/main.dart';
 import 'package:gate_example/services/auth_service.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
-class UserRepositoryMock extends Mock implements UserRepository {}
+import 'provider_test.mocks.dart';
 
-class BookRepositoryMock extends Mock implements BookRepository {}
-
-class AuthenticationServiceMock extends Mock implements AuthenticationService {}
-
+@GenerateNiceMocks([
+  MockSpec<UserRepository>(),
+  MockSpec<BookRepository>(),
+  MockSpec<AuthenticationService>(),
+])
 void main() {
   // Initialize mocks
-  final AuthenticationService authServiceMock = AuthenticationServiceMock();
-  final UserRepository userRepository = UserRepositoryMock();
-  final BookRepository bookRepository = BookRepositoryMock();
+  final AuthenticationService authServiceMock = MockAuthenticationService();
+  final UserRepository userRepositoryMock = MockUserRepository();
+  final BookRepository bookRepositoryMock = MockBookRepository();
 
   group('Mock injection group', () {
     setUp(() {
-      when(() => authServiceMock.getUserId()).thenReturn("31321354");
-      when(() => userRepository.getFromId(any()))
+      when(authServiceMock.getUserId()).thenReturn("31321354");
+      when(userRepositoryMock.getFromId("31321354"))
+          .thenReturn(UserEntity(name: "Robert"));
+      when(userRepositoryMock.getFromId("dsd"))
           .thenReturn(UserEntity(name: "Robert"));
       // Set injected services with mocks
       appProvider.setAuthenticationServiceBuildMock(authServiceMock);
-      appProvider.setUserRepositoryBuildMock(userRepository);
-      appProvider.setBookRepositoryBuildMock(bookRepository);
+      appProvider.setUserRepositoryBuildMock(userRepositoryMock);
+      appProvider.setBookRepositoryBuildMock(bookRepositoryMock);
     });
 
     tearDownAll(() {
