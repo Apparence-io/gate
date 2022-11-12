@@ -1,3 +1,7 @@
+## 1.0.0
+- upgrade dependencies
+- upgrade to 1.0.0 as it's stable
+
 ## 0.0.3+7
 - upgrade dependencies
 

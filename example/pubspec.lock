@@ -203,9 +203,9 @@ packages:
   gate:
     dependency: "direct main"
     description:
-      path: "../packages/gate"
-      relative: true
-    source: path
+      name: gate
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   gate_generator:
     dependency: "direct dev"

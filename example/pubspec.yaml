@@ -31,8 +31,9 @@ dependencies:
   cupertino_icons: ^1.0.5
   flutter:
     sdk: flutter
-  gate:
-    path: ../packages/gate
+  gate: ^1.0.0
+  # gate:
+  #   path: ../packages/gate
 
 dev_dependencies:
   gate_generator: 
