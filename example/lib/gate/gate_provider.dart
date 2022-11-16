@@ -19,26 +19,28 @@ class AppProvider {
   static final AppProvider instance = AppProvider._();
 
 // BookRepository singleton
-  final _i1.BookRepository _bookRepositoryBuild = _i1.BookRepository.build();
+  late final _i1.BookRepository _bookRepositoryBuild =
+      _i1.BookRepository.build();
 
 // BookRepository mock
   _i1.BookRepository? _bookRepositoryBuildMock;
 
 // UserRepository singleton
-  final _i2.UserRepository _userRepositoryBuild = _i2.UserRepository.build();
+  late final _i2.UserRepository _userRepositoryBuild =
+      _i2.UserRepository.build();
 
 // UserRepository mock
   _i2.UserRepository? _userRepositoryBuildMock;
 
 // LibraryRepository singleton
-  final _i3.LibraryRepository _libraryRepositoryBuild =
+  late final _i3.LibraryRepository _libraryRepositoryBuild =
       _i3.LibraryRepository.build();
 
 // LibraryRepository mock
   _i3.LibraryRepository? _libraryRepositoryBuildMock;
 
 // AuthenticationService singleton
-  final _i4.AuthenticationService _authenticationServiceBuild =
+  late final _i4.AuthenticationService _authenticationServiceBuild =
       _i4.AuthenticationService.build();
 
 // AuthenticationService mock

@@ -53,7 +53,7 @@ class GateProviderFactory {
     final providerLibrary =
         Library((b) => b..body.addAll([provider, getProviderMethod]));
 
-    final emitter = DartEmitter.scoped();
+    final emitter = DartEmitter.scoped(useNullSafetySyntax: true);
 
     return DartFormatter().format('${providerLibrary.accept(emitter)}');
   }

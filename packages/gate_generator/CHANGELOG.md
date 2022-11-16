@@ -1,3 +1,6 @@
+## 1.0.1
+- Fix late on singleton
+
 ## 1.0.0
 - upgrade dependencies
 - upgrade to 1.0.0 as it's stable
