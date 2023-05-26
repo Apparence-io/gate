@@ -32,6 +32,8 @@ class JsonBuilder implements Builder {
     }
     if (contentBuffer.isNotEmpty) {
       buildStep.writeAsString(outputId, contentBuffer.toString());
+      // print('Generated: ${outputId.path}');
+      log.info('Generated: ${outputId.path}');
     }
   }
 

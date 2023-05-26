@@ -18,19 +18,25 @@ builders:
     target: ":gate_schema"
     import: "package:gate_generator/gate_generator.dart"
     builder_factories: ["classSchemaBuilder"]
-    build_extensions: {".dart": [".gate_schema.dart"]}
+    build_extensions: 
+      .dart: [.gate_schema.json]
     auto_apply: root_package
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
-    runs_before: ["gate_generator", "inject_generator"]
+    runs_before: ["gate_generator"]
   gate_generator:
     target: ":gate_generator"
     import: "package:gate_generator/gate_generator.dart"
     builder_factories: ["gateBuilder"]
-    build_extensions: {".json": [".gate.dart"]}
+    build_extensions: 
+      .dart:
+      - .gate.dart
     auto_apply: root_package
     build_to: source
+    required_inputs:
+      - '.gate_schema.json'
     applies_builders: ["source_gen|combining_builder"]
+    runs_before: ["inject_generator"]
   inject_generator:
     target: ":inject_generator"
     import: "package:gate_generator/gate_generator.dart"
@@ -38,4 +44,6 @@ builders:
     build_extensions: {".dart": ["gate_inject.g.part"]}
     auto_apply: dependents
     build_to: source
+    required_inputs:
+      - '.gate_schema.json'
     applies_builders: ["source_gen|combining_builder"]

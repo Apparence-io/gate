@@ -1,3 +1,7 @@
+## 1.1.0
+- upgrade for dart 3
+- fix build_runner ordering with new version
+
 ## 1.0.1
 - Fix late on singleton
 

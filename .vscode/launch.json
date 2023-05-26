@@ -28,6 +28,17 @@
             "cwd": "packages/gate_generator",
             "request": "launch",
             "type": "dart"
+        },
+        {
+            "name": "Debug Gate Generator",
+            "cwd": "example",
+            "request": "launch",
+            "program": ".dart_tool/build/entrypoint/build.dart",
+            "type": "dart",
+            "args": [
+                "build",
+                "--delete-conflicting-outputs"
+            ]
         }
     ]
 }

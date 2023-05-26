@@ -5,6 +5,8 @@ import 'package:gate/gate.dart';
 
 part 'home_page.gate_inject.g.part';
 
+// part 'home_page.g.dart';
+
 @Inject(children: [
   InjectedChild(UserService, factoryName: 'build'),
 ])
@@ -29,6 +31,3 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
-
-

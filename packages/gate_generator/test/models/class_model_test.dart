@@ -23,8 +23,8 @@ void main() {
       }
     ]
     ''';
-    List<dynamic> _clazzList = jsonDecode(json);
-    var res = _clazzList.map((e) => ClassSchema.fromJson(e)).toList();
+    List<dynamic> clazzList = jsonDecode(json);
+    var res = clazzList.map((e) => ClassSchema.fromJson(e)).toList();
     expect(res.length, 2);
     expect(res[0].constructor, 'simple');
   });

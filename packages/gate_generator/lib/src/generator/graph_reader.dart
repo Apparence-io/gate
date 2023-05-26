@@ -29,7 +29,7 @@ class GateGraphReader {
   }
 
   List<ClassSchema> _parse(String json) {
-    List<dynamic> _clazzList = jsonDecode(json);
-    return _clazzList.map((e) => ClassSchema.fromJson(e)).toList();
+    List<dynamic> clazzList = jsonDecode(json);
+    return clazzList.map((e) => ClassSchema.fromJson(e)).toList();
   }
 }
