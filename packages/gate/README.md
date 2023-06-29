@@ -1,6 +1,3 @@
-# Gate
-**Dart/Flutter Dependency injection generator**
- 
 <p align="center">
 <img src="https://github.com/Apparence-io/gate/raw/master/packages/gate_generator/doc/images/cover.png" alt="flutter anchored onboarding screen" />
 </p>
@@ -11,18 +8,19 @@
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://camo.githubusercontent.com/83d3746e5881c1867665223424263d8e604df233d0a11aae0813e0414d433943/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667" alt="License: MIT" data-canonical-src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width: 100%;"></a>
 </p>
 
-## Motivation
-Providing Service should be independant from your pages or other code. 
+## 💎&nbsp; Features
+- Provide Injectable as a singleton
+- Provide Injectable as a dynamic service
+- Inject an Injectable class into another
+
+## 💡&nbsp; Motivation
+Providing Service should be independent from your pages or other code. 
+
 The DI pattern separates the responsibility of creating an object of the service class out of the client class.
 Also using code generation we can get rid of the boilerplate part. 
 
-## Features
-- provide Injectable as a singleton
-- provide Injectable as a dynamic service
-- Inject an Injectable class into another
-
-## Getting started
-install gate with build_runner in you pubspec.yaml 
+## 🚀&nbsp; Getting started
+install gate with `build_runner` in you `pubspec.yaml` 
 ```
 dependencies:
   build_runner: ^X.X.X
@@ -31,12 +29,11 @@ dependencies:
 dev_dependencies:
   gate_generator: ^X.X.X
 ```
-> replace X.X.X with last available version on pub.dev.
+> Note: replace X.X.X with last available version on pub.dev.
 
+## 📖&nbsp; Usage
 
-## Usage
-
-### 1 - Create a class you want to inject
+### 1. Create a class you want to inject
 
 ```dart
 import 'package:gate/gate.dart';
@@ -56,13 +53,14 @@ class CoffeeService {
 }
 ```
 
-You just have to 
-- add @Injectable() above your class
-- add @Singleton() or @Provide() above a factory 
+> You just have to 
+> - add `@Injectable()` above your class
+> - add `@Singleton()` or `@Provide()` above a factory 
 
-### 2 - inject dependency 
+### 2. Inject dependency 
 
-We can now inject our Injectables using @Inject annotation. 
+We can now inject our Injectables using `@Inject` annotation.
+
 InjectedChild use
 - Type you want to inject
 - the name of the factory you want to use (you can have multiple provided factories)
@@ -92,8 +90,7 @@ You can inject as many dependency as you want into your class as long as their a
 > this file will be genererated on next step
 > don't forget to import "gate_provider.dart" that is generated next
 
-
-### 3 - generate code
+### 3. Generate code
 Using build runner you can run the command in your shell 
 ```shell
 flutter packages pub run build_runner build --delete-conflicting-outputs
@@ -101,9 +98,9 @@ flutter packages pub run build_runner build --delete-conflicting-outputs
 
 Once build runner is done, you can run your flutter app and use all injected class. 
 
-> If you change your factory or wants to inject other class... just rerun the build_runner :)
+> If you change your factory or wants to inject other class... just rerun the `build_runner` 😀
 
-## Properties
+## 📗&nbsp; Properties
 | Annotation   |      Description                                                     | 
 |--------------|---------------------------------------------------------------------:|
 | Injectable   |  mark a class as containing Singleton or Provide factories           | 
@@ -125,17 +122,25 @@ Once build runner is done, you can run your flutter app and use all injected cla
 | factoryName     |  The factory name to use                                             | 
 | attrName        |  *(optionnal)* The attribute name to call it from your class         | 
 
+## ✅&nbsp; Tests
 
-## Mock an injected dependency for testing
+### Run tests
+```bash
+dart pub global activate coverage
+dart test --coverage="coverage"
+format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib
+```
+
+### Mock an injected dependency for testing
+
 To remplace your service by mocks, you have to set them, before testing.
 Gate will generate all methods for you. 
 
-First, declare your mocked services with your prefered libraries.
+First, declare your mocked services with your preferred libraries.
 
-Then use the "appProvider" to set mocks.
+Then use the `appProvider` to set mocks.
 
 Finally, don't forget to reset mocks by setting them to null.
-
 
 ```dart
 class CoffeeServiceMock extends Mock implements CoffeeService {}
@@ -184,20 +189,15 @@ void main() {
 }
 ```
 
-## Run tests
-```bash
-dart pub global activate coverage
-dart test --coverage="coverage"
-format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib
-```
+## 📣&nbsp; Sponsor
 
-<hr/>
+<img src="https://github.com/Apparence-io/bart/raw/master/.github/img/apparence_logo.png" alt="logo apparence io" />
+<br />
+<br />
 
-## FAQ
-*To be done*
+[Initiated and sponsored by Apparence.io.](https://apparence.io)
 
-<hr/>
-<br><br>
-<a href="https://en.apparence.io"><img src="https://github.com/Apparence-io/bart/raw/master/.github/img/logo.png" alt="Apparence.io logo"></a>
-<p><small>Developed with 💙 &nbsp;by Apparence.io</small></p>
+## 👥&nbsp; Contribution
 
+Contributions are welcome.
+Contribute by creating a PR or create an issue 🎉.
